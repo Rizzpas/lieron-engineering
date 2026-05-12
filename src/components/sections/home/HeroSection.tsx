@@ -13,14 +13,17 @@ import {
   floatingAnimation,
   viewportOnce,
 } from "@/lib/animations";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const HERO_WORDS = ["Quality", "of", "Work"];
 const HERO_LINE2 = ["Is", "Our"];
 
 export default function HeroSection() {
+  const isMobile = useIsMobile();
+
   return (
     <section className="relative w-full overflow-hidden">
-      <div className="grid-bg-animated max-w-7xl mx-auto px-6 lg:px-8 pt-16 md:pt-24 pb-20 md:pb-32 flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
+      <div className={`${isMobile ? '' : 'grid-bg-animated'} max-w-7xl mx-auto px-6 lg:px-8 pt-16 md:pt-24 pb-20 md:pb-32 flex flex-col lg:flex-row items-center gap-16 lg:gap-20`}>
         {/* Left Content */}
         <motion.div
           className="lg:w-[55%] text-center lg:text-left"
@@ -33,11 +36,16 @@ export default function HeroSection() {
             variants={heroBadge}
             className="inline-flex items-center gap-2.5 bg-primary/5 dark:bg-primary/10 border border-primary/10 dark:border-primary/20 rounded-full px-4 py-1.5 mb-8"
           >
-            <motion.span
-              className="w-1.5 h-1.5 rounded-full bg-primary"
-              animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
+            {/* Pulsing dot — disabled on mobile to save CPU */}
+            {isMobile ? (
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+            ) : (
+              <motion.span
+                className="w-1.5 h-1.5 rounded-full bg-primary"
+                animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            )}
             <span className="text-primary font-semibold text-[11px] uppercase tracking-[0.15em]">
               {COMPANY.tagline}
             </span>
@@ -154,17 +162,21 @@ export default function HeroSection() {
           animate="visible"
         >
           <div className="relative">
-            {/* Decorative elements */}
-            <motion.div
-              className="absolute -top-6 -right-6 w-32 h-32 bg-primary/5 dark:bg-primary/10 rounded-3xl -z-10"
-              animate={{ scale: [1, 1.08, 1], rotate: [0, 2, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="absolute -bottom-6 -left-6 w-24 h-24 border-2 border-primary/10 dark:border-primary/20 rounded-2xl -z-10"
-              animate={{ scale: [1, 1.1, 1], rotate: [0, -3, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            />
+            {/* Decorative elements — infinite animations disabled on mobile (already hidden via lg:block) */}
+            {!isMobile && (
+              <>
+                <motion.div
+                  className="absolute -top-6 -right-6 w-32 h-32 bg-primary/5 dark:bg-primary/10 rounded-3xl -z-10"
+                  animate={{ scale: [1, 1.08, 1], rotate: [0, 2, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute -bottom-6 -left-6 w-24 h-24 border-2 border-primary/10 dark:border-primary/20 rounded-2xl -z-10"
+                  animate={{ scale: [1, 1.1, 1], rotate: [0, -3, 0] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </>
+            )}
 
             <div className="bg-gray-200 dark:bg-dark-surface overflow-hidden rounded-2xl shadow-2xl">
               <Image
@@ -178,10 +190,10 @@ export default function HeroSection() {
               />
             </div>
 
-            {/* Floating card */}
+            {/* Floating card — disable floating animation on mobile */}
             <motion.div
               className="absolute -bottom-8 -left-8 glass rounded-xl p-5 shadow-xl"
-              animate={floatingAnimation}
+              animate={isMobile ? undefined : floatingAnimation}
               whileInView="visible"
               viewport={viewportOnce}
             >

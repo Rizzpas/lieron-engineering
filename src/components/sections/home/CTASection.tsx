@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { fadeUp, scaleIn, pulseGlow, viewportOnce } from "@/lib/animations";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function CTASection() {
+  const isMobile = useIsMobile();
+
   return (
     <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20 md:py-32">
       <motion.div
@@ -17,11 +20,11 @@ export default function CTASection() {
         {/* Decorative elements */}
         <motion.div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/10 rounded-full blur-[100px]"
-          animate={pulseGlow}
+          animate={isMobile ? undefined : pulseGlow}
         />
         <motion.div
           className="absolute bottom-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-[80px]"
-          animate={{ ...pulseGlow, transition: { ...pulseGlow.transition, delay: 1.5 } }}
+          animate={isMobile ? undefined : { ...pulseGlow, transition: { ...pulseGlow.transition, delay: 1.5 } }}
         />
 
         <div className="relative z-10">

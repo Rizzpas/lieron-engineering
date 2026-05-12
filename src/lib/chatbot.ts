@@ -42,13 +42,15 @@ function detectIntent(msg: string): string {
   if (/project|portfolio|work|built|construct/i.test(lower)) return "projects";
   if (/contact|reach|email|phone|call|get\s*in\s*touch|talk/i.test(lower)) return "contact";
   if (/locat|address|where|office|auckland|visit|find\s*you/i.test(lower)) return "location";
-  if (/hour|time|open|close|schedule|when/i.test(lower)) return "hours";
-  if (/about|who|company|history|story|found/i.test(lower)) return "about";
+  if (/hour|time|open|close|schedule|when\s*(are|is|do|open|close)/i.test(lower)) return "hours";
+  if (/about|who|company|history|story|found|develop|creat|start|background/i.test(lower)) return "about";
   if (/safe|health|zero\s*harm|compliance|worksafe/i.test(lower)) return "safety";
   if (/pric|cost|quote|estimat|budget|how\s*much/i.test(lower)) return "pricing";
   if (/certif|standard|iso|nzs|as\/nzs|qualif/i.test(lower)) return "certifications";
   if (/thank|thanks|cheers|appreciate/i.test(lower)) return "thanks";
   if (/bye|goodbye|see\s*you|later/i.test(lower)) return "bye";
+  if (/area|coverage|where\s*do\s*you\s*work|north\s*island|south\s*island|nationwide|region/i.test(lower)) return "service_area";
+  if (/residential|house|home|private|domestic|renovat/i.test(lower)) return "residential";
 
   return "fallback";
 }
@@ -167,6 +169,18 @@ export function generateResponse(userMessage: string): ChatResponse {
     case "bye":
       return {
         text: `Thanks for visiting ${COMPANY.shortName} Engineering! Feel free to come back anytime. Have a great day! 👋`,
+      };
+
+    case "service_area":
+      return {
+        text: `While we are based in **${COMPANY.location}**, we provide engineering services throughout the **North Island**. For large-scale infrastructure or industrial projects, we can mobilize our teams further afield.\n\nAre you inquiring about a project outside of Auckland?`,
+        suggestions: ["Contact Us", "Our Services"],
+      };
+
+    case "residential":
+      return {
+        text: `Our primary focus is on **Commercial, Industrial, and Infrastructure** sectors. However, we do provide structural steel detailing and precision welding for high-end residential developments that require industrial-grade engineering.\n\nIs your project for a commercial build or a private residence?`,
+        suggestions: ["Commercial Projects", "Contact for Quote"],
       };
 
     default:

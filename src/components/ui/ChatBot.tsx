@@ -56,28 +56,32 @@ export default function ChatBot() {
 
   const sendMessage = useCallback(
     (text: string) => {
-      if (!text.trim()) return;
+      if (!text.trim() || isTyping) return;
       setHasInteracted(true);
       const userMsg: Message = { id: ++idRef.current, role: "user", text };
       setMessages((prev) => [...prev, userMsg]);
       setInput("");
       setIsTyping(true);
 
-      // Simulate typing delay
+      // Simulate a natural thinking delay
+      const delay = Math.min(800 + text.length * 5, 2000);
+
       setTimeout(() => {
         const response = generateResponse(text);
-        const botMsg: Message = {
-          id: ++idRef.current,
-          role: "bot",
-          text: response.text,
-          links: response.links,
-          suggestions: response.suggestions,
-        };
-        setMessages((prev) => [...prev, botMsg]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: ++idRef.current,
+            role: "bot",
+            text: response.text,
+            links: response.links,
+            suggestions: response.suggestions,
+          },
+        ]);
         setIsTyping(false);
-      }, 500 + Math.random() * 500);
+      }, delay);
     },
-    []
+    [isTyping]
   );
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -85,29 +89,12 @@ export default function ChatBot() {
     sendMessage(input);
   };
 
-  // Simple markdown-like bold rendering
-  const renderText = (text: string) => {
-    return text.split("\n").map((line, i) => (
-      <span key={i} className="block">
-        {line.split(/\*\*(.*?)\*\*/g).map((part, j) =>
-          j % 2 === 1 ? (
-            <strong key={j} className="font-semibold text-gray-900 dark:text-white">
-              {part}
-            </strong>
-          ) : (
-            <span key={j}>{part}</span>
-          )
-        )}
-      </span>
-    ));
-  };
-
   return (
     <>
-      {/* Floating Chat Button */}
+      {/* Floating Chat Button — positioned at bottom-right (priority) */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-20 z-50 w-14 h-14 rounded-full bg-primary text-white shadow-[0_4px_20px_rgba(234,88,12,0.35)] flex items-center justify-center cursor-pointer hover:bg-primary-hover transition-colors"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary text-white shadow-[0_4px_20px_rgba(234,88,12,0.35)] flex items-center justify-center cursor-pointer hover:bg-primary-hover transition-colors"
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
         aria-label={isOpen ? "Close chat" : "Open chat assistant"}
@@ -178,10 +165,10 @@ export default function ChatBot() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-gray-900 dark:text-white">Lerion AI</p>
-                  <p className="text-[10px] text-green-500 font-medium flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                    Online
+                  <p className="text-sm font-bold text-gray-900 dark:text-white">Lerion Assistant</p>
+                  <p className="text-[10px] text-primary font-medium flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
+                    Always online
                   </p>
                 </div>
               </div>
@@ -213,7 +200,7 @@ export default function ChatBot() {
                         : "bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 rounded-bl-md"
                     }`}
                   >
-                    {renderText(msg.text)}
+                    <p className="whitespace-pre-wrap">{msg.text}</p>
 
                     {/* Links */}
                     {msg.links && msg.links.length > 0 && (
@@ -287,7 +274,7 @@ export default function ChatBot() {
                 type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.92 }}
-                disabled={!input.trim()}
+                disabled={!input.trim() || isTyping}
                 className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer hover:bg-primary-hover transition-colors"
                 aria-label="Send message"
               >

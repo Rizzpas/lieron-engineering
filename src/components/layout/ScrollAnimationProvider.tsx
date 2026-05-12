@@ -1,6 +1,5 @@
 "use client";
 
-import { useScrollAnimations } from "@/hooks/useIntersection";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
@@ -70,8 +69,6 @@ export default function ScrollAnimationProvider() {
       observerRef.current = null;
     };
   }, [pathname]);
-
-  useScrollAnimations();
 
   return null;
 }

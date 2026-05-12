@@ -116,11 +116,12 @@ export default function CapabilitiesGrid() {
           </div>
           <div className="md:w-[45%] h-64 md:h-auto relative">
             <Image
-              src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800"
+              src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=60&w=600"
               alt="Certified welding services"
               fill
+              loading="lazy"
               className="object-cover grayscale opacity-40 transition-all duration-700 group-hover:scale-110 group-hover:opacity-60"
-              sizes="(max-width: 768px) 100vw, 35vw"
+              sizes="(max-width: 768px) 100vw, 320px"
             />
           </div>
         </motion.div>

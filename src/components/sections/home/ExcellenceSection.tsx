@@ -4,8 +4,11 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { fadeUp, slideLeft, slideRight, floatingAnimation, viewportOnce } from "@/lib/animations";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function ExcellenceSection() {
+  const isMobile = useIsMobile();
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-dark-card dark:via-dark dark:to-dark-card" />
@@ -21,16 +24,18 @@ export default function ExcellenceSection() {
         >
           <div className="relative">
             <Image
-              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800"
+              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=60&w=600"
               alt="Engineering blueprint review"
               width={800}
               height={500}
+              loading="lazy"
               className="grayscale w-full h-[400px] lg:h-[500px] object-cover object-top rounded-2xl shadow-2xl"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
             {/* Floating stat card */}
             <motion.div
               className="absolute -bottom-6 -right-4 lg:-right-8 glass rounded-xl p-5 shadow-xl"
-              animate={floatingAnimation}
+              animate={isMobile ? undefined : floatingAnimation}
             >
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shadow-[0_4px_16px_rgba(234,88,12,0.3)]">
