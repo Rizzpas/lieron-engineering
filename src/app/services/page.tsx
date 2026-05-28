@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 export const metadata = generatePageMetadata({
   title: "Services",
   description:
-    "Lerion Engineering services: Structural Steel Detailing, Rigging & Heavy Lifting, Site Fabrication & Welding, and Skilled Manpower Supply across New Zealand.",
+    "Lieron Engineering services: Structural Steel Detailing, Rigging & Heavy Lifting, Site Fabrication & Welding, and Skilled Manpower Supply across New Zealand.",
   path: "/services",
 });
 
@@ -41,7 +41,7 @@ export default function ServicesPage() {
                 <span className="gradient-text">Precision.</span>
               </h1>
               <p className="text-gray-400 text-[15px] leading-relaxed max-w-lg">
-                Lerion Engineering delivers high-stakes infrastructure solutions across New Zealand, combining advanced 3D modeling with boots-on-the-ground technical expertise.
+                Lieron Engineering delivers high-stakes infrastructure solutions across New Zealand, combining advanced 3D modeling with boots-on-the-ground technical expertise.
               </p>
             </div>
 
@@ -241,7 +241,7 @@ export default function ServicesPage() {
           <div className="bg-gray-900 dark:bg-dark-surface text-white p-8 md:p-12 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6 animate-on-scroll border border-gray-800 dark:border-dark-border">
             <div>
               <h3 className="text-xl font-bold mb-2">Ready for deployment?</h3>
-              <p className="text-sm text-gray-400">Scale your project capacity with Lerion&apos;s elite technical teams.</p>
+              <p className="text-sm text-gray-400">Scale your project capacity with Lieron&apos;s elite technical teams.</p>
             </div>
             <Button href="/contact" variant="primary" id="manpower-cta">
               Request Manpower

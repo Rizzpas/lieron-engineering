@@ -23,7 +23,7 @@ export default function Footer() {
               <div className="lg:col-span-5">
                 <Link href="/" className="inline-flex items-center gap-3 group mb-6">
                   <Image
-                    src="/icons/lerion-logo.svg"
+                    src="/icons/lieron-logo.svg"
                     alt={`${COMPANY.name} Logo`}
                     width={32}
                     height={36}
@@ -31,7 +31,7 @@ export default function Footer() {
                   />
                   <div>
                     <span className="text-base font-bold uppercase tracking-[0.1em] text-gray-900 dark:text-white">
-                      Lerion
+                      Lieron
                     </span>
                     <span className="text-base font-normal uppercase tracking-[0.1em] text-gray-400 ml-1.5">
                       Engineering

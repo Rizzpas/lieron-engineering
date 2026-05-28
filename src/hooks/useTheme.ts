@@ -16,7 +16,7 @@ function subscribe(callback: () => void) {
 export function useTheme() {
   const theme = useSyncExternalStore(
     subscribe,
-    () => (localStorage.getItem("lerion-theme") as Theme) || 
+    () => (localStorage.getItem("lieron-theme") as Theme) || 
       (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"),
     getServerSnapshot
   );
@@ -28,7 +28,7 @@ export function useTheme() {
 
   const toggleTheme = useCallback(() => {
     const next = theme === "light" ? "dark" : "light";
-    localStorage.setItem("lerion-theme", next);
+    localStorage.setItem("lieron-theme", next);
     document.documentElement.classList.toggle("dark", next === "dark");
     // Trigger storage event for useSyncExternalStore
     window.dispatchEvent(new Event("storage"));

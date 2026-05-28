@@ -142,7 +142,7 @@ export function generateResponse(userMessage: string): ChatResponse {
 
     case "safety":
       return {
-        text: `Safety is our top priority at Lerion Engineering:\n\n🛡️ **Zero Tolerance** — No exceptions to safety protocols\n📋 **Continuous Training** — Weekly crew training & hazard assessments\n✅ **Full Compliance** — Meeting all NZ WorkSafe standards\n\nWe maintain a relentless commitment to the health, safety, and wellbeing of everyone on our sites.`,
+        text: `Safety is our top priority at Lieron Engineering:\n\n🛡️ **Zero Tolerance** — No exceptions to safety protocols\n📋 **Continuous Training** — Weekly crew training & hazard assessments\n✅ **Full Compliance** — Meeting all NZ WorkSafe standards\n\nWe maintain a relentless commitment to the health, safety, and wellbeing of everyone on our sites.`,
         links: [{ label: "Learn More", href: "/about" }],
         suggestions: ["Our Services", "Contact Us"],
       };
@@ -186,7 +186,7 @@ export function generateResponse(userMessage: string): ChatResponse {
     default:
       return {
         text: `I appreciate your question! While I may not have a specific answer for that, I can help you with:\n\n• Our engineering services\n• Project portfolio\n• Contact information\n• Company details\n\nWhat would you like to explore?`,
-        suggestions: ["Our Services", "View Projects", "Contact Us", "About Lerion"],
+        suggestions: ["Our Services", "View Projects", "Contact Us", "About Lieron"],
       };
   }
 }
@@ -198,5 +198,5 @@ export const QUICK_SUGGESTIONS = [
   "View Projects",
   "Contact Us",
   "Office Hours",
-  "About Lerion",
+  "About Lieron",
 ];

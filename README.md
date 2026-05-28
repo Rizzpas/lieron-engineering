@@ -1,11 +1,11 @@
-# 🏗️ Lerion Engineering Limited
+# 🏗️ Lieron Engineering Limited
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.0-ff0055?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 
-**Lerion Engineering Limited** is a premier structural steel engineering firm based in Auckland, NZ. This repository contains our high-performance, animation-rich corporate digital experience.
+**Lieron Engineering Limited** is a premier structural steel engineering firm based in Auckland, NZ. This repository contains our high-performance, animation-rich corporate digital experience.
 
 ---
 
@@ -45,12 +45,12 @@
 ---
 
 ## 📞 Contact
-- **Email**: noriel@lerion.co.nz
+- **Email**: noriel@lieron.co.nz
 - **Phone**: 021 286 2885
-- **Website**: [lerionengineering.co.nz](https://lerionengineering.co.nz)
+- **Website**: [lieronengineering.co.nz](https://lieronengineering.co.nz)
 
 ---
 
 <p align="center">
-  Developed with precision by <strong>Lerion Engineering</strong>
+  Developed with precision by <strong>Lieron Engineering</strong>
 </p>

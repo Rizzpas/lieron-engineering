@@ -35,7 +35,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group shrink-0" id="logo-link">
           <Image
-            src="/icons/lerion-logo.svg"
+            src="/icons/lieron-logo.svg"
             alt={`${COMPANY.name} Logo`}
             width={28}
             height={32}
@@ -44,7 +44,7 @@ export default function Navbar() {
           />
           <div className="hidden sm:block">
             <span className="text-[13px] font-bold uppercase tracking-[0.12em] text-gray-900 dark:text-white transition-colors">
-              Lerion
+              Lieron
             </span>
             <span className="text-[13px] font-normal uppercase tracking-[0.12em] text-gray-500 dark:text-gray-400 ml-1 transition-colors">
               Engineering

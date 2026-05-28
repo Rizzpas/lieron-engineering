@@ -213,7 +213,7 @@ export default function ContactPageClient() {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Lerion Engineering Limited location map"
+            title="Lieron Engineering Limited location map"
           />
         </div>
       </div>

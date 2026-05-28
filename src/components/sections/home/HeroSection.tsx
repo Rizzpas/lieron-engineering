@@ -181,7 +181,7 @@ export default function HeroSection() {
             <div className="bg-gray-200 dark:bg-dark-surface overflow-hidden rounded-2xl shadow-2xl">
               <Image
                 src="/images/hero-image.jpg"
-                alt="Structural Steel Engineering by Lerion Engineering"
+                alt="Structural Steel Engineering by Lieron Engineering"
                 width={800}
                 height={600}
                 className="w-full h-[500px] object-cover transition-transform duration-[1.5s] hover:scale-105"

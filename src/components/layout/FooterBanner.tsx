@@ -14,7 +14,7 @@ export default function FooterBanner() {
         </Link>
       ))}
       <span className="md:hidden text-[10px] font-bold">
-        Lerion Engineering Limited
+        Lieron Engineering Limited
       </span>
     </div>
   );

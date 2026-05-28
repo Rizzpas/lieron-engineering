@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/icons/lerion-logo.svg",
+    icon: "/icons/lieron-logo.svg",
   },
 };
 
@@ -59,7 +59,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const theme = localStorage.getItem('lerion-theme');
+                const theme = localStorage.getItem('lieron-theme');
                 if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                   document.documentElement.classList.add('dark');
                 }

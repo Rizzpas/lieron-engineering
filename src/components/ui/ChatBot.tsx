@@ -40,7 +40,7 @@ export default function ChatBot() {
           {
             id: ++idRef.current,
             role: "bot",
-            text: "Hi! 👋 I'm the Lerion Engineering assistant. I can help you learn about our services, explore projects, or get in touch. How can I help?",
+            text: "Hi! 👋 I'm the Lieron Engineering assistant. I can help you learn about our services, explore projects, or get in touch. How can I help?",
             suggestions: QUICK_SUGGESTIONS,
           },
         ]);
@@ -165,7 +165,7 @@ export default function ChatBot() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-gray-900 dark:text-white">Lerion Assistant</p>
+                  <p className="text-sm font-bold text-gray-900 dark:text-white">Lieron Assistant</p>
                   <p className="text-[10px] text-primary font-medium flex items-center gap-1">
                     <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
                     Always online

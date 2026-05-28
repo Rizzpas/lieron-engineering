@@ -1,8 +1,8 @@
 import type { NavLink } from "@/types";
 
 export const COMPANY = {
-  name: "Lerion Engineering Limited",
-  shortName: "Lerion",
+  name: "Lieron Engineering Limited",
+  shortName: "Lieron",
   tagline: "The Standard of Precision",
   headline: "Quality of Work Is Our Assurance",
   description:
@@ -10,8 +10,8 @@ export const COMPANY = {
   established: "2026",
   location: "Auckland, NZ",
   phone: "021 286 2885",
-  email: "noriel@lerion.co.nz",
-  domain: "https://lerionengineering.co.nz",
+  email: "noriel@lieron.co.nz",
+  domain: "https://lieronengineering.co.nz",
   hours: {
     days: "MON — FRI",
     time: "08:00 — 17:30",

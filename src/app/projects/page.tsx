@@ -4,7 +4,7 @@ import ProjectsPageClient from "@/components/sections/projects/ProjectsPageClien
 export const metadata = generatePageMetadata({
   title: "Projects",
   description:
-    "Explore Lerion Engineering's portfolio of structural steel projects across New Zealand. From commercial developments to industrial infrastructure, built to last.",
+    "Explore Lieron Engineering's portfolio of structural steel projects across New Zealand. From commercial developments to industrial infrastructure, built to last.",
   path: "/projects",
 });
 

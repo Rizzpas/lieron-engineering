@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lerionengineering.co.nz/sitemap.xml
+Sitemap: https://lieronengineering.co.nz/sitemap.xml

@@ -5,7 +5,7 @@ import SectionLabel from "@/components/ui/SectionLabel";
 export const metadata = generatePageMetadata({
   title: "About Us",
   description:
-    "Learn about Lerion Engineering Limited — precision engineering solutions built on reliability. Auckland-based structural steel specialists with a relentless commitment to safety.",
+    "Learn about Lieron Engineering Limited — precision engineering solutions built on reliability. Auckland-based structural steel specialists with a relentless commitment to safety.",
   path: "/about",
 });
 
@@ -27,7 +27,7 @@ export default function AboutPage() {
           </div>
           <div className="lg:col-span-4 pb-2 animate-on-scroll delay-200">
             <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed">
-              At Lerion Engineering, we don&apos;t just assemble structures; we forge the backbone of New Zealand&apos;s robust infrastructure through surgical precision and unwavering standards.
+              At Lieron Engineering, we don&apos;t just assemble structures; we forge the backbone of New Zealand&apos;s robust infrastructure through surgical precision and unwavering standards.
             </p>
           </div>
         </div>

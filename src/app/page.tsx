@@ -8,7 +8,7 @@ import CTASection from "@/components/sections/home/CTASection";
 export const metadata = generatePageMetadata({
   title: "Structural Steel Engineering in Auckland, NZ",
   description:
-    "Lerion Engineering Limited — Specializing in Structural Steel Detailing, Rigging, and Site Fabrication Welding across New Zealand. Quality of work is our assurance.",
+    "Lieron Engineering Limited — Specializing in Structural Steel Detailing, Rigging, and Site Fabrication Welding across New Zealand. Quality of work is our assurance.",
   path: "/",
 });
 
