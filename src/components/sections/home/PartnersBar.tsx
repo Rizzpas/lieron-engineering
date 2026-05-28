@@ -32,7 +32,7 @@ export default function PartnersBar() {
                 alt="Enterprize Steel"
                 width={120}
                 height={48}
-                className="h-10 md:h-12 w-auto dark:brightness-0 dark:invert dark:opacity-70 dark:hover:opacity-100 transition-all duration-300"
+                className="h-10 md:h-12 w-auto transition-all duration-300"
               />
             </motion.span>
             <motion.span
@@ -45,7 +45,7 @@ export default function PartnersBar() {
                 alt="Weldlok"
                 width={120}
                 height={48}
-                className="h-10 md:h-12 w-auto dark:brightness-0 dark:invert dark:opacity-70 dark:hover:opacity-100 transition-all duration-300"
+                className="h-10 md:h-12 w-auto transition-all duration-300"
               />
             </motion.span>
           </div>
