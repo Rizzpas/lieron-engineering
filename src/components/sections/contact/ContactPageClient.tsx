@@ -1,14 +1,73 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { COMPANY } from "@/lib/constants";
 
-const PROJECT_TYPES = ["Residential", "Commercial", "Industrial", "Consultancy", "Other"] as const;
+const CONCERN_TYPES = [
+  "New Project Inquiry",
+  "Ongoing Project Update",
+  "Staff & Service Feedback",
+  "Billing & Accounts",
+  "General Enquiry",
+  "Other",
+] as const;
+
+type FormStatus = "idle" | "submitting" | "success" | "error";
 
 export default function ContactPageClient() {
-  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedConcern, setSelectedConcern] = useState<string | null>(null);
+  const [customConcern, setCustomConcern] = useState("");
+  const [formStatus, setFormStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setFormStatus("submitting");
+    setErrorMessage("");
+
+    // Determine the concern value
+    let concernValue = selectedConcern || "General Enquiry";
+    if (selectedConcern === "Other") {
+      concernValue = customConcern.trim() || "Other";
+    }
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      concern: concernValue,
+      brief: formData.get("brief") as string,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setFormStatus("error");
+        setErrorMessage(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+
+      setFormStatus("success");
+      setSelectedConcern(null);
+      setCustomConcern("");
+      formRef.current?.reset();
+
+      setTimeout(() => setFormStatus("idle"), 6000);
+    } catch {
+      setFormStatus("error");
+      setErrorMessage("Network error. Please check your connection and try again.");
+    }
+  }
 
   return (
     <>
@@ -17,15 +76,15 @@ export default function ContactPageClient() {
         {/* Hero Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-12 items-end mb-12 md:mb-16">
           <div className="lg:col-span-7 animate-on-scroll">
-            <SectionLabel variant="dark">Inquiry Phase 01</SectionLabel>
+            <SectionLabel variant="dark">Contact Phase 01</SectionLabel>
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-[0.92] tracking-tight text-dark dark:text-white">
-              Start Your<br />
-              <span className="gradient-text">Build.</span>
+              Get In<br />
+              <span className="gradient-text">Touch.</span>
             </h1>
           </div>
           <div className="lg:col-span-5 pb-2 animate-on-scroll delay-200">
             <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed max-w-md mt-4 lg:mt-0">
-              Translate your architectural vision into structural reality. Our engineering team is ready to analyze your specifications and provide technical consultation.
+              Whether you&apos;re starting a new project, have questions about an ongoing build, or need to raise a concern — our team reviews every submission with priority.
             </p>
           </div>
         </div>
@@ -34,7 +93,41 @@ export default function ContactPageClient() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20">
           {/* Contact Form */}
           <div className="bg-gray-50 dark:bg-dark-card rounded-2xl p-6 sm:p-10 md:p-14 animate-on-scroll border border-gray-100 dark:border-dark-border">
-            <form className="space-y-8 md:space-y-10">
+            {/* Success Message */}
+            {formStatus === "success" && (
+              <div className="mb-8 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 animate-[fadeIn_0.4s_ease-out]">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm text-emerald-800 dark:text-emerald-300">Message Sent Successfully</p>
+                    <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1">We&apos;ve received your message. Our team will review and respond within 24 hours.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {formStatus === "error" && (
+              <div className="mb-8 p-4 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 animate-[fadeIn_0.4s_ease-out]">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm text-red-800 dark:text-red-300">Submission Failed</p>
+                    <p className="text-xs text-red-600 dark:text-red-400 mt-1">{errorMessage}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                 <div>
                   <label htmlFor="contact-name" className="block text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-[0.15em] mb-3">
@@ -47,6 +140,7 @@ export default function ContactPageClient() {
                     placeholder="John Doe"
                     className="w-full bg-transparent border-b border-gray-300 dark:border-gray-600 pb-3 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary transition-colors placeholder:text-gray-400"
                     required
+                    disabled={formStatus === "submitting"}
                   />
                 </div>
                 <div>
@@ -60,43 +154,64 @@ export default function ContactPageClient() {
                     placeholder="john@example.com"
                     className="w-full bg-transparent border-b border-gray-300 dark:border-gray-600 pb-3 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary transition-colors placeholder:text-gray-400"
                     required
+                    disabled={formStatus === "submitting"}
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-[0.15em] mb-3">
-                  Project Type
+                  Nature of Concern
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  {PROJECT_TYPES.map((type) => (
+                  {CONCERN_TYPES.map((type) => (
                     <button
                       key={type}
                       type="button"
-                      onClick={() => setSelectedType(selectedType === type ? null : type)}
+                      onClick={() => {
+                        setSelectedConcern(selectedConcern === type ? null : type);
+                        if (type !== "Other") setCustomConcern("");
+                      }}
+                      disabled={formStatus === "submitting"}
                       className={`text-[10px] font-semibold uppercase tracking-[0.12em] px-4 py-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                        selectedType === type
+                        selectedConcern === type
                           ? "bg-primary text-white shadow-[0_2px_12px_rgba(234,88,12,0.3)]"
                           : "bg-gray-200 dark:bg-dark-surface text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 border border-gray-300 dark:border-dark-border"
-                      }`}
+                      } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       {type}
                     </button>
                   ))}
                 </div>
-                <input type="hidden" name="projectType" value={selectedType || ""} />
+
+                {/* Custom concern input — appears when "Other" is selected */}
+                {selectedConcern === "Other" && (
+                  <div className="mt-4 animate-[fadeIn_0.3s_ease-out]">
+                    <input
+                      type="text"
+                      value={customConcern}
+                      onChange={(e) => setCustomConcern(e.target.value)}
+                      placeholder="Please specify your concern..."
+                      className="w-full bg-transparent border-b border-gray-300 dark:border-gray-600 pb-3 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary transition-colors placeholder:text-gray-400"
+                      disabled={formStatus === "submitting"}
+                      required
+                    />
+                  </div>
+                )}
               </div>
 
               <div>
                 <label htmlFor="contact-brief" className="block text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-[0.15em] mb-3">
-                  Project Brief
+                  Message
                 </label>
                 <textarea
                   id="contact-brief"
                   name="brief"
                   rows={4}
-                  placeholder="Describe the structural requirements and site location..."
+                  placeholder="Describe your inquiry, concern, or feedback in detail..."
                   className="w-full bg-transparent border-b border-gray-300 dark:border-gray-600 pb-3 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary transition-colors placeholder:text-gray-400 resize-none"
+                  disabled={formStatus === "submitting"}
+                  required
                 />
               </div>
 
@@ -104,12 +219,25 @@ export default function ContactPageClient() {
                 <button
                   type="submit"
                   id="contact-submit"
-                  className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white text-[11px] font-semibold uppercase tracking-[0.15em] px-8 py-4 rounded-lg transition-all duration-300 flex justify-center items-center gap-3 shadow-[0_2px_12px_rgba(234,88,12,0.25)] hover:shadow-[0_4px_20px_rgba(234,88,12,0.35)] hover:-translate-y-0.5 cursor-pointer"
+                  disabled={formStatus === "submitting"}
+                  className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white text-[11px] font-semibold uppercase tracking-[0.15em] px-8 py-4 rounded-lg transition-all duration-300 flex justify-center items-center gap-3 shadow-[0_2px_12px_rgba(234,88,12,0.25)] hover:shadow-[0_4px_20px_rgba(234,88,12,0.35)] hover:-translate-y-0.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
-                  Initialize Consultation
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  {formStatus === "submitting" ? (
+                    <>
+                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Submit Message
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </>
+                  )}
                 </button>
               </div>
             </form>

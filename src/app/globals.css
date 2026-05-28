@@ -222,6 +222,32 @@
   @apply bg-gray-400 dark:bg-gray-600;
 }
 
+/* ===== AUTOFILL OVERRIDE ===== */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #111827;
+  -webkit-box-shadow: 0 0 0px 1000px #f9fafb inset;
+  box-shadow: 0 0 0px 1000px #f9fafb inset;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: #111827;
+}
+
+:is(.dark) input:-webkit-autofill,
+:is(.dark) input:-webkit-autofill:hover,
+:is(.dark) input:-webkit-autofill:focus,
+:is(.dark) textarea:-webkit-autofill,
+:is(.dark) textarea:-webkit-autofill:hover,
+:is(.dark) textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px #141414 inset;
+  box-shadow: 0 0 0px 1000px #141414 inset;
+  caret-color: #ffffff;
+}
+
 /* ===== SMOOTH LINK UNDERLINES ===== */
 .link-underline {
   position: relative;
