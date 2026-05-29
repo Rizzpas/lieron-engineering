@@ -173,11 +173,10 @@ export default function ContactPageClient() {
                         if (type !== "Other") setCustomConcern("");
                       }}
                       disabled={formStatus === "submitting"}
-                      className={`text-[10px] font-semibold uppercase tracking-[0.12em] px-4 py-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                        selectedConcern === type
-                          ? "bg-primary text-white shadow-[0_2px_12px_rgba(234,88,12,0.3)]"
-                          : "bg-gray-200 dark:bg-dark-surface text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 border border-gray-300 dark:border-dark-border"
-                      } disabled:opacity-50 disabled:cursor-not-allowed`}
+                      className={`text-[10px] font-semibold uppercase tracking-[0.12em] px-4 py-2.5 rounded-full transition-all duration-300 cursor-pointer ${selectedConcern === type
+                        ? "bg-primary text-white shadow-[0_2px_12px_rgba(234,88,12,0.3)]"
+                        : "bg-gray-200 dark:bg-dark-surface text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 border border-gray-300 dark:border-dark-border"
+                        } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       {type}
                     </button>
@@ -307,20 +306,6 @@ export default function ContactPageClient() {
         {/* Bottom Info Bar */}
         <div className="mt-16 md:mt-20 pt-8">
           <div className="divider-gradient mb-8" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 animate-on-scroll">
-            <div>
-              <p className="text-primary font-semibold text-[10px] uppercase tracking-[0.15em] mb-2">Operations</p>
-              <p className="font-bold text-sm text-gray-900 dark:text-white">North Island Wide</p>
-            </div>
-            <div>
-              <p className="text-primary font-semibold text-[10px] uppercase tracking-[0.15em] mb-2">Technical Support</p>
-              <p className="font-bold text-sm text-gray-900 dark:text-white">24/7 Priority Response</p>
-            </div>
-            <div>
-              <p className="text-primary font-semibold text-[10px] uppercase tracking-[0.15em] mb-2">Certifications</p>
-              <p className="font-bold text-sm text-gray-900 dark:text-white">CPEng / NZ Chartered</p>
-            </div>
-          </div>
         </div>
       </div>
 

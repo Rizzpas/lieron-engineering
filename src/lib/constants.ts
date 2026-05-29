@@ -7,14 +7,14 @@ export const COMPANY = {
   headline: "Quality of Work Is Our Assurance",
   description:
     "Specializing in Structural Steel Detailing, Rigging, and Site Fabrication Welding across New Zealand. We engineer the skeletal strength of modern infrastructure.",
-  established: "2026",
+  established: "2023",
   location: "Auckland, NZ",
   phone: "021 286 2885",
   email: "noriel@lieron.co.nz",
   domain: "https://lieronengineering.co.nz",
   hours: {
     days: "MON — FRI",
-    time: "08:00 — 17:30",
+    time: "07:00 — 15:30",
   },
 } as const;
 

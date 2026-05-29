@@ -46,7 +46,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="font-bold text-sm mb-2 text-gray-900 dark:text-white">Auckland Origin</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                    Founded in Auckland, specializing in rigging and structural steel installation. Targeted focus on Auckland&apos;s growing skyline.
+                    Founded in Auckland since 2023, Lieron Engineering Limited has grown from a small contractor for rigging crew into a trusted partner for large-scale structural projects. Our reputation is built on consistent delivery, attention to detail, and client satisfaction.
                   </p>
                 </div>
               </div>
@@ -94,12 +94,12 @@ export default function AboutPage() {
             {
               icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
               title: "The Vision",
-              desc: "To build the skyline that defines modern New Zealand. A mark of highest standard, unyielding performance and structural integrity.",
+              desc: "To be a trusted leader in specialized engineering services, known for our expertise in rigging, structural detailing, and on-site welding fabrication. We aim to set industry benchmarks in quality, safety, and reliability—building structures that stand strong for generations.",
             },
             {
               icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0",
               title: "The Mission",
-              desc: "Pioneering progress by providing a resource-focused combination of specialized rigging expertise and high-spec structural fabrication.",
+              desc: "To deliver precision-engineered solutions that support the backbone of New Zealand’s infrastructure and industrial sectors. We specialize in structural steel detailing, rigging, and site fabrication welding, ensuring every project is executed with safety, accuracy, and efficiency.",
             },
             {
               icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",

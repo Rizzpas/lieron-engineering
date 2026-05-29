@@ -1,7 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Where contact form submissions are sent (change to noriel@lieron.co.nz for production)
 const RECIPIENT_EMAIL = "jonathan.ripas14@gmail.com";
 
@@ -23,6 +21,16 @@ function getConcernBadge(concern: string): { bg: string; text: string } {
 
 export async function POST(request: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error("Missing RESEND_API_KEY environment variable");
+      return Response.json(
+        { error: "Email service is currently misconfigured. Please try again later." },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
     const body: ContactFormData = await request.json();
 
     if (!body.name?.trim() || !body.email?.trim() || !body.brief?.trim()) {

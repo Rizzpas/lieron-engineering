@@ -136,9 +136,10 @@ export default function HeroSection() {
             className="mt-12 pt-8 border-t border-gray-100 dark:border-white/5 flex flex-wrap items-center justify-center lg:justify-start gap-8"
           >
             {[
-              { value: "99.8%", label: "Accuracy" },
+              { value: "100+", label: "Projects" },
+              { value: "99.9%", label: "Success Rate" },
               { value: "NZS", label: "Certified" },
-              { value: "24/7", label: "Support" },
+
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -180,7 +181,7 @@ export default function HeroSection() {
 
             <div className="bg-gray-200 dark:bg-dark-surface overflow-hidden rounded-2xl shadow-2xl">
               <Image
-                src="/images/hero-image.jpg"
+                src="/images/hero-img.jpg"
                 alt="Structural Steel Engineering by Lieron Engineering"
                 width={800}
                 height={600}

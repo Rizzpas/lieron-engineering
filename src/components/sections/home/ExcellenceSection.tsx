@@ -24,12 +24,12 @@ export default function ExcellenceSection() {
         >
           <div className="relative">
             <Image
-              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=60&w=600"
-              alt="Engineering blueprint review"
+              src="/images/wow.jpg"
+              alt="Rigging"
               width={800}
               height={500}
               loading="lazy"
-              className="grayscale w-full h-[400px] lg:h-[500px] object-cover object-top rounded-2xl shadow-2xl"
+              className="w-full h-[400px] lg:h-[500px] object-cover object-top rounded-2xl shadow-2xl"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
             {/* Floating stat card */}
@@ -44,7 +44,7 @@ export default function ExcellenceSection() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-2xl font-black text-gray-900 dark:text-white">99.8%</p>
+                  <p className="text-2xl font-black text-gray-900 dark:text-white">99.9%</p>
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Accuracy Rate</p>
                 </div>
               </div>
@@ -70,19 +70,19 @@ export default function ExcellenceSection() {
           <div className="space-y-8 mb-10">
             {[
               {
-                stat: "99.8%",
-                title: "Accuracy Rate",
+                stat: "100+",
+                title: "Projects Done",
+                desc: "Successfully delivered structural steel detailing and fabrication across NZ.",
+              },
+              {
+                stat: "99.9%",
+                title: "Success Rate",
                 desc: "Rigorous detailing verification processes ensure zero rework on site.",
               },
               {
                 stat: "NZS",
                 title: "Certified Standards",
-                desc: "Full compliance with AS/NZS 1554 welding standards across all projects.",
-              },
-              {
-                stat: "24/7",
-                title: "Rapid Mobilization",
-                desc: "Our teams are ready for immediate deployment to any site across New Zealand.",
+                desc: "Full compliance with AS/NZS 1554 structural welding standards.",
               },
             ].map((item, i) => (
               <motion.div

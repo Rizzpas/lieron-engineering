@@ -9,15 +9,18 @@ const CARDS = [
   {
     num: "01",
     title: "Structural Steel Detailing",
-    desc: "Mathematical precision in every 3D model and shop drawing. We bridge the gap between architectural vision and fabrication reality.",
+    desc: "We provide precise 3D modelling and shop drawings that seamlessly connect architectural concepts with fabrication needs.",
     span: "md:col-span-7",
-    large: true,
+    image: "/images/Steel-detailing.jpg",
+    isHorizontal: true,
   },
   {
     num: "02",
     title: "Rigging",
     desc: "Expert lifting operations for complex steel structures across demanding NZ sites.",
     span: "md:col-span-5",
+    image: "/images/riggings.jpeg",
+    isHorizontal: false,
     icon: (
       <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z" />
@@ -29,11 +32,21 @@ const CARDS = [
     title: "Site Fabrication",
     desc: "On-site modifications and precision fabrication for real-world structural challenges.",
     span: "md:col-span-5",
+    image: "/images/sf.jpeg",
+    isHorizontal: false,
     icon: (
       <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0" />
       </svg>
     ),
+  },
+  {
+    num: "04",
+    title: "Certified Welding",
+    desc: "Exceeding NZ industrial standards with high-pressure site welding services for seismic-critical infrastructure.",
+    span: "md:col-span-7",
+    image: "/images/sw.jpeg",
+    isHorizontal: true,
   },
 ];
 
@@ -75,56 +88,41 @@ export default function CapabilitiesGrid() {
             key={card.num}
             variants={fadeUp}
             whileHover={{ y: -6, transition: { duration: 0.3 } }}
-            className={`${card.span} bg-gray-50 dark:bg-dark-card rounded-2xl ${card.large ? "p-10 lg:p-14" : "p-10"} flex flex-col justify-between min-h-[320px] relative overflow-hidden group border border-gray-100 dark:border-dark-border transition-shadow duration-500 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.5)]`}
+            className={`${card.span} bg-gray-100 shadow-md dark:bg-dark-surface rounded-2xl text-gray-900 dark:text-white flex flex-col ${card.isHorizontal ? "md:flex-row" : ""} overflow-hidden group border border-gray-100 dark:border-dark-border transition-shadow duration-500 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.3)] min-h-[380px]`}
           >
-            {card.large && (
-              <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full" />
-            )}
-            <div className="flex justify-between items-start">
-              <span className="text-primary font-bold text-xs tracking-[0.2em] uppercase">{card.num}</span>
-              {card.icon && (
-                <div className="w-10 h-10 rounded-xl bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:bg-primary/10 dark:group-hover:bg-primary/20 transition-colors">
-                  {card.icon}
+            {/* Text container */}
+            <div className={`p-10 ${card.isHorizontal ? "lg:p-14 md:w-[55%] flex flex-col justify-center" : "flex-grow flex flex-col justify-between"}`}>
+              <div>
+                <div className="flex justify-between items-start mb-6">
+                  <span className="text-primary font-bold text-xs tracking-[0.2em] uppercase">{card.num}</span>
+                  {card.icon && (
+                    <div className="w-10 h-10 rounded-xl bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:bg-primary/10 dark:group-hover:bg-primary/20 transition-colors">
+                      {card.icon}
+                    </div>
+                  )}
                 </div>
-              )}
+                <h3 className="text-2xl lg:text-3xl font-bold mb-4 tracking-tight">
+                  {card.title}
+                </h3>
+                <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed">
+                  {card.desc}
+                </p>
+              </div>
             </div>
-            <div className="mt-auto relative z-10">
-              <h3 className={`${card.large ? "text-2xl lg:text-3xl" : "text-2xl"} font-bold text-gray-900 dark:text-white mb-3 tracking-tight`}>
-                {card.title}
-              </h3>
-              <p className={`text-gray-500 dark:text-gray-400 ${card.large ? "max-w-md text-[15px]" : "text-sm"} leading-relaxed`}>
-                {card.desc}
-              </p>
+
+            {/* Image container */}
+            <div className={`${card.isHorizontal ? "md:w-[45%] h-64 md:h-auto" : "h-48 w-full mt-auto"} relative`}>
+              <Image
+                src={card.image}
+                alt={card.title}
+                fill
+                loading="lazy"
+                className="object-cover opacity-100 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+                sizes={card.isHorizontal ? "(max-width: 768px) 100vw, 320px" : "(max-width: 768px) 100vw, 400px"}
+              />
             </div>
           </motion.div>
         ))}
-
-        {/* Certified Welding — dark card with image */}
-        <motion.div
-          variants={fadeUp}
-          whileHover={{ y: -6, transition: { duration: 0.3 } }}
-          className="md:col-span-7 bg-gray-900 dark:bg-dark-surface rounded-2xl text-white flex flex-col md:flex-row overflow-hidden group border border-gray-800 dark:border-dark-border transition-shadow duration-500 hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.3)]"
-        >
-          <div className="p-10 lg:p-14 md:w-[55%] flex flex-col justify-center">
-            <span className="text-primary font-bold text-xs tracking-[0.2em] uppercase mb-6">04</span>
-            <h3 className="text-2xl lg:text-3xl font-bold mb-4 tracking-tight">
-              Certified Welding
-            </h3>
-            <p className="text-gray-400 text-[15px] leading-relaxed">
-              Exceeding NZ industrial standards with high-pressure site welding services for seismic-critical infrastructure.
-            </p>
-          </div>
-          <div className="md:w-[45%] h-64 md:h-auto relative">
-            <Image
-              src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=60&w=600"
-              alt="Certified welding services"
-              fill
-              loading="lazy"
-              className="object-cover grayscale opacity-40 transition-all duration-700 group-hover:scale-110 group-hover:opacity-60"
-              sizes="(max-width: 768px) 100vw, 320px"
-            />
-          </div>
-        </motion.div>
       </motion.div>
     </section>
   );
