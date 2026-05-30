@@ -22,6 +22,7 @@ function getConcernBadge(concern: string): { bg: string; text: string } {
 export async function POST(request: Request) {
   try {
     const apiKey = process.env.RESEND_API_KEY;
+
     if (!apiKey) {
       console.error("Missing RESEND_API_KEY environment variable");
       return Response.json(
@@ -31,6 +32,7 @@ export async function POST(request: Request) {
     }
 
     const resend = new Resend(apiKey);
+
     const body: ContactFormData = await request.json();
 
     if (!body.name?.trim() || !body.email?.trim() || !body.brief?.trim()) {

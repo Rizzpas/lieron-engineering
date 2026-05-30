@@ -59,6 +59,7 @@ export default function ProjectsPageClient() {
           {PROJECT_CATEGORIES.map((cat) => (
             <motion.button
               key={cat.value}
+              type="button"
               onClick={() => setActiveCategory(cat.value)}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
@@ -82,12 +83,11 @@ export default function ProjectsPageClient() {
 
       {/* Project Grid */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <AnimatePresence mode="popLayout">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatePresence>
             {filtered.map((project) => (
               <motion.div
                 key={project.id}
-                layout
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.92 }}
@@ -166,7 +166,7 @@ export default function ProjectsPageClient() {
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
         {filtered.length === 0 && (
           <div className="text-center py-20">
