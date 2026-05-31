@@ -55,18 +55,42 @@ export default function ChatBot() {
   }, [isOpen]);
 
   const sendMessage = useCallback(
-    (text: string) => {
+    async (text: string) => {
       if (!text.trim() || isTyping) return;
       setHasInteracted(true);
       const userMsg: Message = { id: ++idRef.current, role: "user", text };
+      const updatedMessages = [...messages, userMsg];
       setMessages((prev) => [...prev, userMsg]);
       setInput("");
       setIsTyping(true);
 
-      // Simulate a natural thinking delay
-      const delay = Math.min(800 + text.length * 5, 2000);
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            messages: updatedMessages.map((m) => ({ role: m.role, text: m.text })),
+          }),
+        });
 
-      setTimeout(() => {
+        if (!res.ok) throw new Error("API Route responded with error status");
+
+        const data = await res.json();
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: ++idRef.current,
+            role: "bot",
+            text: data.text,
+            links: data.links,
+            suggestions: data.suggestions,
+          },
+        ]);
+      } catch (err) {
+        console.error("Failed to fetch response:", err);
+        // Instant static fallback if API fails (offline or server error)
         const response = generateResponse(text);
         setMessages((prev) => [
           ...prev,
@@ -78,10 +102,11 @@ export default function ChatBot() {
             suggestions: response.suggestions,
           },
         ]);
+      } finally {
         setIsTyping(false);
-      }, delay);
+      }
     },
-    [isTyping]
+    [messages, isTyping]
   );
 
   const handleSubmit = (e: React.FormEvent) => {

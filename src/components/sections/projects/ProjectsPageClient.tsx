@@ -10,14 +10,21 @@ import ProjectModal from "@/components/ui/ProjectModal";
 import { PROJECTS, PROJECT_CATEGORIES } from "@/lib/projects";
 import type { ProjectData } from "@/lib/projects";
 import { fadeUp, viewportOnce } from "@/lib/animations";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function ProjectsPageClient() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const isMobile = useIsMobile();
+  const defaultLimit = isMobile ? 3 : 6;
 
   const filtered = activeCategory === "all"
     ? PROJECTS
     : PROJECTS.filter((p) => p.category === activeCategory);
+
+  const displayedProjects = showAll ? filtered : filtered.slice(0, defaultLimit);
 
   return (
     <>
@@ -59,7 +66,11 @@ export default function ProjectsPageClient() {
           {PROJECT_CATEGORIES.map((cat) => (
             <motion.button
               key={cat.value}
-              onClick={() => setActiveCategory(cat.value)}
+              type="button"
+              onClick={() => {
+                setActiveCategory(cat.value);
+                setShowAll(false);
+              }}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               className={`px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.15em] rounded-full transition-all duration-300 cursor-pointer ${
@@ -82,22 +93,40 @@ export default function ProjectsPageClient() {
 
       {/* Project Grid */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatePresence>
+            {displayedProjects.map((project, index) => {
+              const isLastVisible = !showAll && index === defaultLimit - 1 && filtered.length > defaultLimit;
+              const remainingCount = filtered.length - defaultLimit;
+
+              return (
               <motion.div
                 key={project.id}
-                layout
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.92 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 role="button"
                 tabIndex={0}
-                onClick={() => setSelectedProject(project)}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedProject(project); } }}
-                className="group text-left relative overflow-hidden rounded-2xl bg-gray-50 dark:bg-dark-card border border-gray-100 dark:border-dark-border cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                whileHover={{ y: -4 }}
+                onClick={() => {
+                  if (isLastVisible) {
+                    setShowAll(true);
+                  } else {
+                    setSelectedProject(project);
+                  }
+                }}
+                onKeyDown={(e) => { 
+                  if (e.key === 'Enter' || e.key === ' ') { 
+                    e.preventDefault(); 
+                    if (isLastVisible) {
+                      setShowAll(true);
+                    } else {
+                      setSelectedProject(project); 
+                    }
+                  } 
+                }}
+                className={`${!isLastVisible ? 'group' : ''} text-left relative overflow-hidden rounded-2xl bg-gray-50 dark:bg-dark-card border border-gray-100 dark:border-dark-border cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50`}
+                whileHover={isLastVisible ? {} : { y: -4 }}
                 id={`project-${project.id}`}
               >
                 {/* Image */}
@@ -123,11 +152,13 @@ export default function ProjectsPageClient() {
                   </div>
 
                   {/* View button overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <span className="bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm text-gray-900 dark:text-white text-[10px] font-semibold uppercase tracking-[0.15em] px-5 py-2.5 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                      View Details
-                    </span>
-                  </div>
+                  {!isLastVisible && (
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                      <span className="bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm text-gray-900 dark:text-white text-[10px] font-semibold uppercase tracking-[0.15em] px-5 py-2.5 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        View Details
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
@@ -163,10 +194,39 @@ export default function ProjectsPageClient() {
                     </svg>
                   </div>
                 </div>
+
+                {/* View All Overlay for the last visible card */}
+                {isLastVisible && (
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-[2px] transition-colors hover:bg-black/50">
+                    <span className="text-white text-2xl font-bold tracking-tight">
+                      View All
+                    </span>
+                    <span className="text-white/90 text-sm mt-2 font-medium">
+                      +{remainingCount} more
+                    </span>
+                  </div>
+                )}
               </motion.div>
-            ))}
+              );
+            })}
           </AnimatePresence>
-        </motion.div>
+        </div>
+
+        {showAll && filtered.length > defaultLimit && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-12 flex justify-center"
+          >
+            <Button
+              onClick={() => setShowAll(false)}
+              variant="outline"
+              type="button"
+            >
+              See Less
+            </Button>
+          </motion.div>
+        )}
 
         {filtered.length === 0 && (
           <div className="text-center py-20">

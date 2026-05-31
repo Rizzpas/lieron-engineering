@@ -21,8 +21,8 @@ function getConcernBadge(concern: string): { bg: string; text: string } {
 
 export async function POST(request: Request) {
   try {
-<<<<<<< HEAD
     const apiKey = process.env.RESEND_API_KEY;
+
     if (!apiKey) {
       console.error("Missing RESEND_API_KEY environment variable");
       return Response.json(
@@ -32,11 +32,7 @@ export async function POST(request: Request) {
     }
 
     const resend = new Resend(apiKey);
-=======
-    // Initialize inside the handler to prevent Vercel build errors if env var is missing during build
-    const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
 
->>>>>>> cd669313e7ff72580cdf9579ff7cd5845afd5723
     const body: ContactFormData = await request.json();
 
     if (!body.name?.trim() || !body.email?.trim() || !body.brief?.trim()) {
