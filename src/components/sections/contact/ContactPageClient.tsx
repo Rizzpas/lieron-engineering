@@ -35,21 +35,41 @@ export default function ContactPageClient() {
 
   const renderTurnstile = useCallback(() => {
     const container = turnstileContainerRef.current;
-    const turnstile = (window as unknown as { turnstile?: { render: (el: HTMLElement, opts: Record<string, unknown>) => string; reset: (id: string) => void; remove: (id: string) => void } }).turnstile;
-    if (!container || !turnstile) return;
+    if (!container) return;
 
-    // Remove previous widget if it exists (e.g. after form reset)
-    if (turnstileWidgetId.current) {
-      try { turnstile.remove(turnstileWidgetId.current); } catch { /* ignore */ }
+    const render = (ts: any) => {
+      if (turnstileWidgetId.current) {
+        try { ts.remove(turnstileWidgetId.current); } catch { /* ignore */ }
+      }
+      turnstileWidgetId.current = ts.render(container, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+        callback: (token: string) => setTurnstileToken(token),
+        "expired-callback": () => setTurnstileToken(""),
+        "error-callback": () => setTurnstileToken(""),
+        theme: "auto",
+      });
+    };
+
+    const win = window as any;
+    if (win.turnstile) {
+      render(win.turnstile);
+      return;
     }
 
-    turnstileWidgetId.current = turnstile.render(container, {
-      sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
-      callback: (token: string) => setTurnstileToken(token),
-      "expired-callback": () => setTurnstileToken(""),
-      "error-callback": () => setTurnstileToken(""),
-      theme: "auto",
-    });
+    // Script tag exists but turnstile script is not fully parsed yet — poll for it
+    let attempts = 0;
+    const interval = setInterval(() => {
+      if (win.turnstile) {
+        clearInterval(interval);
+        render(win.turnstile);
+      } else {
+        attempts++;
+        if (attempts > 50) { // Stop after 5 seconds
+          clearInterval(interval);
+          console.error("Cloudflare Turnstile failed to load.");
+        }
+      }
+    }, 100);
   }, []);
 
   useEffect(() => {
@@ -274,7 +294,20 @@ export default function ContactPageClient() {
               </div>
 
               {/* Cloudflare Turnstile verification widget */}
-              <div ref={turnstileContainerRef} className="min-h-[65px]" />
+              <div 
+                ref={turnstileContainerRef} 
+                className="min-h-[65px] flex items-center justify-start text-[10px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider"
+              >
+                {!turnstileToken && (
+                  <div className="flex items-center gap-2">
+                    <svg className="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    <span>Verifying session security...</span>
+                  </div>
+                )}
+              </div>
 
               <div>
                 <button
