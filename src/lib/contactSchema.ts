@@ -34,8 +34,6 @@ export const contactSchema = z.object({
   // Cloudflare Turnstile verification token
   turnstileToken: z.string().min(1, "Please complete the verification."),
 
-  // Timestamp (ms) when the form was loaded — used for timing check
-  formLoadedAt: z.number(),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;

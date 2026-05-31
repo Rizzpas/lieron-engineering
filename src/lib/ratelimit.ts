@@ -56,13 +56,8 @@ export async function checkRateLimit(ip: string): Promise<RateLimitResult> {
   }
 
   try {
-    // Check all tiers in parallel for performance
-    const [minuteResult, hourResult, dayResult] = await Promise.all([
-      createMinuteLimiter().limit(ip),
-      createHourLimiter().limit(ip),
-      createDayLimiter().limit(ip),
-    ]);
-
+    // Check sequentially to save Redis bandwidth
+    const minuteResult = await createMinuteLimiter().limit(ip);
     if (!minuteResult.success) {
       return {
         allowed: false,
@@ -70,6 +65,7 @@ export async function checkRateLimit(ip: string): Promise<RateLimitResult> {
       };
     }
 
+    const hourResult = await createHourLimiter().limit(ip);
     if (!hourResult.success) {
       return {
         allowed: false,
@@ -77,6 +73,7 @@ export async function checkRateLimit(ip: string): Promise<RateLimitResult> {
       };
     }
 
+    const dayResult = await createDayLimiter().limit(ip);
     if (!dayResult.success) {
       return {
         allowed: false,
