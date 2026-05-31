@@ -8,7 +8,7 @@ import ScrollAnimationProvider from "@/components/layout/ScrollAnimationProvider
 import PageTransition from "@/components/layout/PageTransition";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import AmbientBackground from "@/components/layout/AmbientBackground";
-import ChatBotLoader from "@/components/ui/ChatBotLoader";
+
 
 const inter = localFont({
   src: "../../public/fonts/Inter-Variable.ttf",
@@ -78,7 +78,7 @@ export default function RootLayout({
         <Footer />
         <ScrollAnimationProvider />
         <ScrollToTop />
-        <ChatBotLoader />
+
       </body>
     </html>
   );

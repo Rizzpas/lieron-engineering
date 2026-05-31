@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { COMPANY } from "@/lib/constants";
 
@@ -23,6 +23,53 @@ export default function ContactPageClient() {
   const [errorMessage, setErrorMessage] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
+  // Record when the form was loaded — used for minimum submission time check
+  const [formLoadedAt] = useState(() => Date.now());
+
+  // Turnstile token captured after the user completes the challenge
+  const [turnstileToken, setTurnstileToken] = useState("");
+
+  // Load Cloudflare Turnstile script and render the widget
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetId = useRef<string | null>(null);
+
+  const renderTurnstile = useCallback(() => {
+    const container = turnstileContainerRef.current;
+    const turnstile = (window as unknown as { turnstile?: { render: (el: HTMLElement, opts: Record<string, unknown>) => string; reset: (id: string) => void; remove: (id: string) => void } }).turnstile;
+    if (!container || !turnstile) return;
+
+    // Remove previous widget if it exists (e.g. after form reset)
+    if (turnstileWidgetId.current) {
+      try { turnstile.remove(turnstileWidgetId.current); } catch { /* ignore */ }
+    }
+
+    turnstileWidgetId.current = turnstile.render(container, {
+      sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "",
+      callback: (token: string) => setTurnstileToken(token),
+      "expired-callback": () => setTurnstileToken(""),
+      "error-callback": () => setTurnstileToken(""),
+      theme: "auto",
+    });
+  }, []);
+
+  useEffect(() => {
+    // Load the Turnstile script if not already present
+    const SCRIPT_ID = "cf-turnstile-script";
+    if (document.getElementById(SCRIPT_ID)) {
+      // Script already loaded — render immediately
+      renderTurnstile();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = SCRIPT_ID;
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => renderTurnstile();
+    document.head.appendChild(script);
+  }, [renderTurnstile]);
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormStatus("submitting");
@@ -40,6 +87,10 @@ export default function ContactPageClient() {
       email: formData.get("email") as string,
       concern: concernValue,
       brief: formData.get("brief") as string,
+      // Security fields
+      trap_field: formData.get("trap_field") as string,  // honeypot
+      turnstileToken,
+      formLoadedAt,
     };
 
     try {
@@ -53,15 +104,18 @@ export default function ContactPageClient() {
 
       if (!res.ok) {
         setFormStatus("error");
-        setErrorMessage(data.error || "Something went wrong. Please try again.");
+        setErrorMessage(data.message || "Something went wrong. Please try again.");
         return;
       }
 
       setFormStatus("success");
       setSelectedConcern(null);
       setCustomConcern("");
+      setTurnstileToken("");
       formRef.current?.reset();
 
+      // Re-render Turnstile widget for next submission
+      setTimeout(() => renderTurnstile(), 100);
       setTimeout(() => setFormStatus("idle"), 6000);
     } catch {
       setFormStatus("error");
@@ -128,6 +182,11 @@ export default function ContactPageClient() {
             )}
 
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+              {/* Honeypot — invisible to users, traps bots that auto-fill all fields */}
+              <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, overflow: "hidden" }}>
+                <label htmlFor="trap_field">Do not fill this field</label>
+                <input type="text" id="trap_field" name="trap_field" tabIndex={-1} autoComplete="off" />
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                 <div>
                   <label htmlFor="contact-name" className="block text-[10px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-[0.15em] mb-3">
@@ -213,6 +272,9 @@ export default function ContactPageClient() {
                   required
                 />
               </div>
+
+              {/* Cloudflare Turnstile verification widget */}
+              <div ref={turnstileContainerRef} className="min-h-[65px]" />
 
               <div>
                 <button

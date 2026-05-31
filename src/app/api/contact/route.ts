@@ -1,14 +1,14 @@
 import { Resend } from "resend";
+import { headers } from "next/headers";
+import { contactSchema } from "@/lib/contactSchema";
+import { verifyTurnstile } from "@/lib/turnstile";
+import { checkRateLimit } from "@/lib/ratelimit";
 
 // Where contact form submissions are sent (change to noriel@lieron.co.nz for production)
 const RECIPIENT_EMAIL = "jonathan.ripas14@gmail.com";
 
-interface ContactFormData {
-  name: string;
-  email: string;
-  concern: string;
-  brief: string;
-}
+// Minimum time (ms) between form load and submission to reject instant bot submissions
+const MIN_SUBMISSION_TIME_MS = 3000;
 
 function getConcernBadge(concern: string): { bg: string; text: string } {
   const c = concern.toLowerCase();
@@ -21,65 +21,113 @@ function getConcernBadge(concern: string): { bg: string; text: string } {
 
 export async function POST(request: Request) {
   try {
-    const apiKey = process.env.RESEND_API_KEY;
+    // --- 1. RATE LIMITING (check before parsing body to save resources) ---
+    const headersList = await headers();
+    const ip =
+      headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      headersList.get("x-real-ip") ||
+      "unknown";
 
+    const rateLimitResult = await checkRateLimit(ip);
+    if (!rateLimitResult.allowed) {
+      return Response.json(
+        { success: false, message: rateLimitResult.message },
+        { status: 429 }
+      );
+    }
+
+    // --- 2. ZOD VALIDATION ---
+    const rawBody = await request.json();
+    const parsed = contactSchema.safeParse(rawBody);
+
+    if (!parsed.success) {
+      // Return the first validation error for a clean user-facing message
+      const firstError = parsed.error.issues[0]?.message || "Invalid form data.";
+      return Response.json(
+        { success: false, message: firstError },
+        { status: 400 }
+      );
+    }
+
+    const { name, email, concern, brief, trap_field, turnstileToken, formLoadedAt } = parsed.data;
+
+    // --- 3. HONEYPOT CHECK ---
+    // Bots fill hidden fields; real users never see this input.
+    // Return a fake success so bots think submission worked.
+    if (trap_field) {
+      console.warn("⚠️ Honeypot triggered! 'trap_field' was filled with:", trap_field);
+      return Response.json(
+        { success: true, message: "Message sent successfully." },
+        { status: 200 }
+      );
+    }
+
+    // --- 4. MINIMUM SUBMISSION TIME CHECK ---
+    // Rejects submissions faster than a human could reasonably fill the form.
+    const elapsedMs = Date.now() - formLoadedAt;
+    if (elapsedMs < MIN_SUBMISSION_TIME_MS) {
+      return Response.json(
+        { success: false, message: "Submission was too fast. Please take a moment and try again." },
+        { status: 400 }
+      );
+    }
+
+    // --- 5. TURNSTILE VERIFICATION ---
+    const turnstileResult = await verifyTurnstile(turnstileToken);
+    if (!turnstileResult.success) {
+      return Response.json(
+        { success: false, message: "Verification failed. Please try again." },
+        { status: 400 }
+      );
+    }
+
+    // --- 6. SEND EMAIL VIA RESEND (only after ALL checks pass) ---
+    const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
       console.error("Missing RESEND_API_KEY environment variable");
       return Response.json(
-        { error: "Email service is currently misconfigured. Please try again later." },
+        { success: false, message: "Email service is currently unavailable. Please try again later." },
         { status: 500 }
       );
     }
 
     const resend = new Resend(apiKey);
+    const badge = getConcernBadge(concern);
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeConcern = escapeHtml(concern || "General Enquiry");
+    const safeBrief = escapeHtml(brief);
 
-    const body: ContactFormData = await request.json();
-
-    if (!body.name?.trim() || !body.email?.trim() || !body.brief?.trim()) {
-      return Response.json(
-        { error: "Name, email, and message are required." },
-        { status: 400 }
-      );
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(body.email)) {
-      return Response.json(
-        { error: "Please provide a valid email address." },
-        { status: 400 }
-      );
-    }
-
-    const badge = getConcernBadge(body.concern);
-    const concern = escapeHtml(body.concern || "General Enquiry");
-    const name = escapeHtml(body.name);
-    const email = escapeHtml(body.email);
-    const brief = escapeHtml(body.brief);
-
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "Lieron Engineering <onboarding@resend.dev>",
       to: [RECIPIENT_EMAIL],
-      replyTo: body.email,
-      subject: `[Lieron] ${body.concern} — ${body.name}`,
-      html: buildEmailHtml({ name, email, concern, brief, badge }),
+      replyTo: email,
+      subject: `[Lieron] ${concern} — ${name}`,
+      html: buildEmailHtml({
+        name: safeName,
+        email: safeEmail,
+        concern: safeConcern,
+        brief: safeBrief,
+        badge,
+      }),
     });
 
     if (error) {
       console.error("Resend error:", JSON.stringify(error));
       return Response.json(
-        { error: error.message || "Failed to send email. Please try again later." },
+        { success: false, message: "Failed to send email. Please try again later." },
         { status: 500 }
       );
     }
 
     return Response.json(
-      { success: true, messageId: data?.id },
+      { success: true, message: "Message sent successfully." },
       { status: 200 }
     );
   } catch (err) {
     console.error("Contact form error:", err);
     return Response.json(
-      { error: "An unexpected error occurred. Please try again later." },
+      { success: false, message: "An unexpected error occurred. Please try again later." },
       { status: 500 }
     );
   }
