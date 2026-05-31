@@ -64,10 +64,10 @@ export default function AboutPage() {
 
           <div className="relative h-80 lg:h-auto rounded-2xl overflow-hidden animate-on-scroll slide-right">
             <Image
-              src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000&auto=format&fit=crop"
+              src="/images/rigg 17.jpeg"
               alt="Steel beams structural framework"
               fill
-              className="object-cover grayscale"
+              className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
@@ -104,7 +104,7 @@ export default function AboutPage() {
             {
               icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
               title: "The Value",
-              desc: "Reliability is not just a word; it is our operational baseline. Zero defects, zero spills, and zero delays.",
+              desc: "We show up prepared, communicate clearly, and complete each task based on project requirements and safety procedures. Through practical workmanship, accountability, and teamwork, we aim to support every project with consistent and dependable service.",
             },
           ].map((item, i) => (
             <div
@@ -133,18 +133,18 @@ export default function AboutPage() {
           <div className="animate-on-scroll">
             <SectionLabel className="text-primary">Health, Safety and Wellbeing</SectionLabel>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[0.95] mb-12 mt-4">
-              A Relentless
+              A Practical
               <br />
               Commitment
               <br />
-              <span className="text-gray-500">To Safety.</span>
+              <span className="text-gray-500">To Safe Work.</span>
             </h2>
 
             <div className="space-y-8">
               {[
-                { title: "Zero Tolerance", desc: "Strict adherence to safety protocols is mandatory. No exceptions, no shortcuts." },
-                { title: "Continuous Training", desc: "Our crew undergoes rigorous weekly training and site-specific hazard assessments." },
-                { title: "Full Compliance", desc: "Meeting and exceeding all NZ WorkSafe standards and ISO certification requirements." },
+                { title: "SAFETY FIRST", desc: "We follow safe work practices, site procedures, and risk controls to help protect our team, clients, and project sites." },
+                { title: "ONGOING READINESS", desc: "Our team stays prepared through site briefings, task planning, and practical safety awareness before and during work." },
+                { title: "COMPLIANCE-FOCUSED WORK", desc: "We work in line with relevant New Zealand health and safety requirements, project procedures, and client expectations." },
               ].map((item, i) => (
                 <div key={item.title} className="flex items-start gap-4" style={{ transitionDelay: `${i * 100}ms` }}>
                   <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -165,7 +165,7 @@ export default function AboutPage() {
               src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1000&auto=format&fit=crop"
               alt="Construction site safety protocols"
               fill
-              className="object-cover grayscale opacity-70"
+              className="object-cover opacity-70"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
@@ -181,19 +181,19 @@ export default function AboutPage() {
               The Specialist Engine
             </h2>
             <p className="text-gray-500 dark:text-gray-400 text-[15px] mt-3">
-              Comprehensive infrastructure support across every discipline.
+              Skilled support for structural steel projects, from detailing to site works.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               {
-                title: "Coded Welders",
+                title: "Welders",
                 image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=800&auto=format&fit=crop",
               },
               {
-                title: "Advanced Riggers",
-                image: "https://images.unsplash.com/photo-1582213706038-f8d9ce3dff1b?q=80&w=800&auto=format&fit=crop",
+                title: "Riggers",
+                image: "/images/rigg 2.jpeg",
               },
               {
                 title: "Steel Detailers",

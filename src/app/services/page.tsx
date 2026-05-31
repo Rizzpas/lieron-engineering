@@ -41,7 +41,7 @@ export default function ServicesPage() {
                 <span className="gradient-text">Precision.</span>
               </h1>
               <p className="text-gray-400 text-[15px] leading-relaxed max-w-lg">
-                Lieron Engineering delivers high-stakes infrastructure solutions across New Zealand, combining advanced 3D modeling with boots-on-the-ground technical expertise.
+                Lieron Engineering provides practical structural steel services across New Zealand, including steel detailing, rigging, site fabrication, welding, and manpower support for construction and industrial projects.
               </p>
             </div>
 
@@ -73,13 +73,13 @@ export default function ServicesPage() {
               Structural Steel Detailing
             </h2>
             <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed mb-10">
-              Our detailing department bridges the gap between architectural intent and physical reality. We utilize state-of-the-art BIM integration to resolve complex sub-assemblies before a single beam leaves the factory.
+              We prepare steel models, shop drawings, and fabrication details to help project teams coordinate steel works before fabrication and installation.
             </p>
 
             <div className="space-y-6">
               {[
-                { title: "3D Modeling & BIM", desc: "Advanced Tekla Structures modeling for complex geometries.", icon: "M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" },
-                { title: "Shop Drawings", desc: "Accurate fabrication drawings with full material lists.", icon: "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" },
+                { title: "3D Modeling & BIM", desc: "Steel modeling support using industry tools such as Tekla Structures, based on project requirements.", icon: "M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" },
+                { title: "Shop Drawings", desc: "Clear shop drawings and material information to support fabrication and site coordination.", icon: "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" },
               ].map((item) => (
                 <div key={item.title} className="flex gap-4 items-start group">
                   <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-dark-card border border-gray-200 dark:border-dark-border flex items-center justify-center shrink-0 group-hover:border-primary/30 transition-colors">
@@ -99,20 +99,20 @@ export default function ServicesPage() {
           <div className="animate-on-scroll slide-right">
             <div className="bg-gray-50 dark:bg-dark-card rounded-2xl overflow-hidden border border-gray-100 dark:border-dark-border">
               <Image
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1000&auto=format&fit=crop"
+                src="/images/Steel-detailing.jpg"
                 alt="3D structural modeling"
                 width={1000}
                 height={400}
-                className="w-full h-64 object-cover grayscale dark:opacity-60"
+                className="w-full h-64 object-cover"
               />
               <div className="grid grid-cols-2 divide-x divide-gray-200 dark:divide-dark-border p-6">
                 <div className="pr-6">
-                  <p className="text-primary font-semibold text-[10px] uppercase tracking-[0.15em] mb-1">Standard</p>
-                  <p className="font-bold text-sm text-gray-900 dark:text-white">AS/NZS 5131</p>
+                  <p className="text-primary font-semibold text-[10px] uppercase tracking-[0.15em] mb-1">CAPABILITY</p>
+                  <p className="font-bold text-sm text-gray-900 dark:text-white">3D Modeling & BIM</p>
                 </div>
                 <div className="pl-6">
-                  <p className="text-primary font-semibold text-[10px] uppercase tracking-[0.15em] mb-1">Accuracy</p>
-                  <p className="font-bold text-sm text-gray-900 dark:text-white">&lt;2.0mm Tolerance</p>
+                  <p className="text-primary font-semibold text-[10px] uppercase tracking-[0.15em] mb-1">DELIVERABLES</p>
+                  <p className="font-bold text-sm text-gray-900 dark:text-white">Shop Drawings & Fabrication Details</p>
                 </div>
               </div>
             </div>
@@ -132,16 +132,16 @@ export default function ServicesPage() {
             </div>
             <div className="md:text-right animate-on-scroll delay-100">
               <p className="text-gray-400 text-[15px] leading-relaxed max-w-md ml-auto">
-                Precision placement for New Zealand&apos;s most challenging sites. Our certified crews manage the physics of heavy lifts with uncompromising safety standards.
+                We support lifting, positioning, and handling of structural steel on site, with planning based on project needs and site conditions.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { title: "Certified Crews", desc: "Highly trained advanced riggers with NZQA certifications.", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
-              { title: "Lift Planning", desc: "Comprehensive critical lift plans and site-specific safety analysis.", icon: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" },
-              { title: "Specialist Gear", desc: "Maintenance of high-spec lifting tackle and spreader bars.", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35" },
+              { title: "Certified Crews", desc: "Trained rigging personnel assigned based on project requirements.", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
+              { title: "Lift Planning", desc: "Lift planning support based on site conditions, load requirements, and project safety procedures..", icon: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" },
+              { title: "Specialist Gear", desc: "Access to suitable lifting equipment and gear depending on the project scope.", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35" },
             ].map((item, i) => (
               <div
                 key={item.title}
@@ -174,23 +174,23 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div className="relative animate-on-scroll">
               <Image
-                src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=1000&auto=format&fit=crop"
+                src="/images/sf 2.jpeg"
                 alt="Professional welder at work"
                 width={1000}
                 height={450}
-                className="w-full h-[450px] object-cover grayscale rounded-2xl"
+                className="w-full h-[450px] object-cover rounded-2xl"
               />
               <div className="absolute -bottom-6 -right-4 md:-right-6 bg-primary text-white p-6 rounded-xl shadow-lg text-center">
-                <div className="text-3xl font-extrabold leading-none mb-1">24/7</div>
-                <div className="text-[9px] font-semibold tracking-[0.15em] uppercase">Mobilization</div>
+                <div className="text-3xl font-extrabold leading-none mb-1">03</div>
+                <div className="text-[9px] font-semibold tracking-[0.15em] uppercase">SITE SUPPORT</div>
               </div>
             </div>
 
             <div className="space-y-8 animate-on-scroll slide-right">
               {[
-                { title: "On-Site Welding", desc: "AS/NZS 2980 certified welders equipped for heavy structural modifications and remedial works in any location." },
-                { title: "Custom Steel Fabrication", desc: "From bespoke architectural features to heavy industrial platforms, we fabricate to exact project specifications." },
-                { title: "Precision Alignment", desc: "Utilizing optical and laser measurement for high precision component installation." },
+                { title: "On-Site Welding", desc: "On-site welding support for structural steel works, carried out according to project specifications and relevant welding requirements." },
+                { title: "Custom Steel Fabrication", desc: "Steel fabrication support for project-specific components, site adjustments, and structural steel works." },
+                { title: "Precision Alignment", desc: " Alignment support for steel components during installation and site works." },
               ].map((item, i) => (
                 <div key={item.title} className="flex items-start gap-4" style={{ transitionDelay: `${i * 100}ms` }}>
                   <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -221,10 +221,10 @@ export default function ServicesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
             {[
-              { badge: "Certified", title: "Structural Welders", desc: "Multi-process certified welders ready for immediate site deployment." },
-              { badge: "Specialist", title: "Advanced Riggers", desc: "Crews trained for high-risk lifting and critical assembly tasks." },
-              { badge: "Technical", title: "Steel Erectors", desc: "Experienced teams for rapid and safe structural framework assembly." },
-              { badge: "Leadership", title: "Site Supervisors", desc: "Qualified personnel to manage site safety and workflow efficiency." },
+              { badge: "Skilled Support", title: "Structural Welders", desc: "Welders available for structural steel works based on project needs and required qualifications." },
+              { badge: "Specialist", title: "Advanced Riggers", desc: "Rigging personnel available to support lifting, positioning, and steel assembly works." },
+              { badge: "Technical", title: "Steel Erectors", desc: " Steel erectors available to support structural steel installation and site assembly." },
+              { badge: "Leadership", title: "Site Supervisors", desc: "Site supervision support to help coordinate work activities, safety procedures, and project workflow" },
             ].map((item, i) => (
               <div
                 key={item.title}
