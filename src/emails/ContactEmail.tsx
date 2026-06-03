@@ -120,7 +120,7 @@ export const ContactEmail = ({
                                     letterSpacing: "0.08em",
                                     padding: "6px 14px",
                                     borderRadius: "24px",
-                                    border: \`1px solid \${badgeText}20\`,
+                                    border: `1px solid ${badgeText}20`,
                                   }}
                                 >
                                   {concern}
@@ -146,7 +146,7 @@ export const ContactEmail = ({
                               <td width="4%" className="spacer" />
                               <td width="48%" className="responsive-td" style={{ backgroundColor: "#1f1f22", borderRadius: "12px", padding: "20px", border: "1px solid #333338", verticalAlign: "top" }}>
                                 <div style={{ color: "#a1a1aa", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Reply To</div>
-                                <a href={\`mailto:\${email}\`} style={{ color: "#ea580c", fontSize: "15px", fontWeight: 600, textDecoration: "none", wordBreak: "break-all", lineHeight: 1.4 }}>{email}</a>
+                                <a href={`mailto:${email}`} style={{ color: "#ea580c", fontSize: "15px", fontWeight: 600, textDecoration: "none", wordBreak: "break-all", lineHeight: 1.4 }}>{email}</a>
                               </td>
                             </tr>
                           </tbody>
@@ -159,7 +159,7 @@ export const ContactEmail = ({
                           <tbody>
                             <tr>
                               <td align="center">
-                                <a href={\`mailto:\${email}?subject=Re: \${concern}\`} style={{ display: "inline-block", backgroundColor: "#ea580c", color: "#ffffff", textDecoration: "none", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", padding: "16px 36px", borderRadius: "8px", boxShadow: "0 4px 14px rgba(234,88,12,0.3)" }}>Reply to {name}</a>
+                                <a href={`mailto:${email}?subject=Re: ${concern}`} style={{ display: "inline-block", backgroundColor: "#ea580c", color: "#ffffff", textDecoration: "none", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", padding: "16px 36px", borderRadius: "8px", boxShadow: "0 4px 14px rgba(234,88,12,0.3)" }}>Reply to {name}</a>
                               </td>
                             </tr>
                           </tbody>
