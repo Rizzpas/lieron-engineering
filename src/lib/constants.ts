@@ -14,7 +14,7 @@ export const COMPANY = {
   domain: "https://lieronengineering.co.nz",
   hours: {
     days: "MON — FRI",
-    time: "07:00 — 15:30",
+    time: "07:00 AM — 03:30 PM",
   },
 } as const;
 
