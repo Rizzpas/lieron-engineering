@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import type { ProjectData } from "@/lib/projects";
 import { modalBackdrop, modalContent } from "@/lib/animations";
@@ -12,6 +13,12 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Lock body scroll when modal is open
   useEffect(() => {
     if (project) {
@@ -31,7 +38,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-  return (
+  const modalHtml = (
     <AnimatePresence>
       {project && (
         <motion.div
@@ -116,7 +123,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.4 }}
             >
-              {/* Meta row */}
+              {/* Meta row — Contractors */}
               <div className="flex flex-wrap items-center gap-4 mb-6 pb-6 border-b border-gray-100 dark:border-dark-border">
                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,9 +134,9 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  {project.year}
+                  {project.details.duration}
                 </div>
               </div>
 
@@ -139,25 +146,15 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </p>
 
               {/* Project specs */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                {project.details.tonnage && (
-                  <div className="bg-gray-50 dark:bg-dark-surface rounded-xl p-4 border border-gray-100 dark:border-dark-border">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-1">Tonnage</p>
-                    <p className="text-lg font-bold text-gray-900 dark:text-white">{project.details.tonnage}</p>
-                  </div>
-                )}
-                {project.details.duration && (
-                  <div className="bg-gray-50 dark:bg-dark-surface rounded-xl p-4 border border-gray-100 dark:border-dark-border">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-1">Duration</p>
-                    <p className="text-lg font-bold text-gray-900 dark:text-white">{project.details.duration}</p>
-                  </div>
-                )}
-                {project.details.standard && (
-                  <div className="bg-gray-50 dark:bg-dark-surface rounded-xl p-4 border border-gray-100 dark:border-dark-border">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-1">Standard</p>
-                    <p className="text-lg font-bold text-gray-900 dark:text-white">{project.details.standard}</p>
-                  </div>
-                )}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+                <div className="bg-gray-50 dark:bg-dark-surface rounded-xl p-4 border border-gray-100 dark:border-dark-border">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-1">Duration</p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-white">{project.details.duration}</p>
+                </div>
+                <div className="bg-gray-50 dark:bg-dark-surface rounded-xl p-4 border border-gray-100 dark:border-dark-border">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-1">Main Contractor</p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-white">{project.mainContractor}</p>
+                </div>
                 <div className="bg-gray-50 dark:bg-dark-surface rounded-xl p-4 border border-gray-100 dark:border-dark-border">
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-1">Category</p>
                   <p className="text-lg font-bold text-primary">{project.categoryLabel}</p>
@@ -165,9 +162,52 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
 
               {/* Scope */}
-              <div className="bg-gray-50 dark:bg-dark-surface rounded-xl p-5 border border-gray-100 dark:border-dark-border">
+              <div className="bg-gray-50 dark:bg-dark-surface rounded-xl p-5 border border-gray-100 dark:border-dark-border mb-8">
                 <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-2">Project Scope</p>
                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{project.details.scope}</p>
+              </div>
+
+              {/* Key Highlights */}
+              {project.keyHighlights.length > 0 && (
+                <div className="mb-8">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-4">Key Highlights</p>
+                  <ul className="space-y-3">
+                    {project.keyHighlights.map((highlight, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                        <span className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Gallery */}
+              <div>
+                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-4">Gallery</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {project.gallery.length > 0 ? (
+                    project.gallery.map((img, i) => (
+                      <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden border border-gray-100 dark:border-dark-border">
+                        <Image
+                          src={img}
+                          alt={`${project.title} - Photo ${i + 1}`}
+                          fill
+                          className="object-cover hover:scale-105 transition-transform duration-500"
+                          sizes="(max-width: 768px) 50vw, 200px"
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      {[1, 2, 3].map((_, i) => (
+                        <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-dashed border-gray-200 dark:border-dark-border flex items-center justify-center bg-gray-50/50 dark:bg-dark-surface/50">
+                          <span className="text-xs text-gray-400 font-medium text-center px-4">Upload photo<br/>to show here</span>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -175,4 +215,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+  return createPortal(modalHtml, document.body);
 }

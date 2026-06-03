@@ -168,7 +168,7 @@ export default function ProjectsPageClient() {
                       {project.categoryLabel}
                     </span>
                     <span className="text-gray-400 dark:text-gray-600 text-xs">
-                      {project.year}
+                      {project.details.duration}
                     </span>
                   </div>
 

@@ -5,153 +5,211 @@ export interface ProjectData {
   category: "commercial" | "industrial" | "infrastructure";
   categoryLabel: string;
   location: string;
-  year: string;
   status: "completed" | "ongoing";
   image: string;
+  subcontractor: string;
+  mainContractor: string;
   details: {
     scope: string;
-    tonnage?: string;
-    duration?: string;
-    standard?: string;
+    duration: string;
   };
+  keyHighlights: string[];
+  gallery: string[];
 }
 
 export const PROJECTS: ProjectData[] = [
+  // ── COMMERCIAL ──────────────────────────────────────────────
   {
-    id: "central-rail-hub",
-    title: "Central Rail Hub Assembly",
-    description: "Complex structural steel framework for Auckland's major transit hub, involving precision-engineered beam connections and seismic-rated joints.",
-    category: "infrastructure",
-    categoryLabel: "Infrastructure",
-    location: "Auckland CBD",
-    year: "2024",
-    status: "ongoing",
-    image: "https://images.unsplash.com/photo-1541888086925-920eb1fd1e60?q=80&w=1200&auto=format&fit=crop",
-    details: {
-      scope: "Primary steel structure, connection design, erection",
-      tonnage: "2,400 tonnes",
-      duration: "18 months",
-      standard: "AS/NZS 5131",
-    },
-  },
-  {
-    id: "harbour-bridge-reinforcement",
-    title: "Harbour Bridge Reinforcement",
-    description: "Seismic strengthening and structural steel upgrades for critical bridge infrastructure. High-tolerance welding in marine environment.",
-    category: "infrastructure",
-    categoryLabel: "Infrastructure",
-    location: "Auckland Harbour",
-    year: "2024",
-    status: "ongoing",
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop",
-    details: {
-      scope: "Seismic retrofit, steel reinforcement plates, coded welding",
-      tonnage: "850 tonnes",
-      duration: "24 months",
-      standard: "AS/NZS 1554.1",
-    },
-  },
-  {
-    id: "precision-pipe-network",
-    title: "Precision Pipe Network",
-    description: "Industrial piping support steelwork for a major processing facility. Custom bracket fabrication with sub-millimeter tolerances.",
-    category: "industrial",
-    categoryLabel: "Industrial",
-    location: "South Auckland",
-    year: "2024",
-    status: "completed",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=1200&auto=format&fit=crop",
-    details: {
-      scope: "Pipe rack steelwork, support brackets, platform access",
-      tonnage: "620 tonnes",
-      duration: "8 months",
-      standard: "AS/NZS 1554.5",
-    },
-  },
-  {
-    id: "welding-plant-expansion",
-    title: "Welding Plant Expansion",
-    description: "Heavy industrial workshop expansion including overhead crane beams, mezzanine flooring, and structural portal frames.",
-    category: "industrial",
-    categoryLabel: "Industrial",
-    location: "Hamilton",
-    year: "2024",
-    status: "ongoing",
-    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1200&auto=format&fit=crop",
-    details: {
-      scope: "Portal frames, crane beams, mezzanine steel",
-      tonnage: "340 tonnes",
-      duration: "6 months",
-      standard: "NZS 3404",
-    },
-  },
-  {
-    id: "commercial-tower-framework",
-    title: "Commercial Tower Framework",
-    description: "12-storey commercial office tower structural steel package. Full 3D Tekla modeling, shop drawing production, and site erection.",
+    id: "place-makers-wiri",
+    title: "Place Makers Wiri",
+    description:
+      "Installation of structural steel framework and side girts purlins for a major commercial retail facility.",
     category: "commercial",
     categoryLabel: "Commercial",
-    location: "Auckland CBD",
-    year: "2023",
+    location: "Wiri, Auckland",
     status: "completed",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/projects/place-makers-wiri.jpg",
+    subcontractor: "Lieron Engineering Limited",
+    mainContractor: "Weldlok NZ",
     details: {
-      scope: "Structural steel detailing, fabrication coordination, erection",
-      tonnage: "1,800 tonnes",
-      duration: "14 months",
-      standard: "AS/NZS 5131",
+      scope:
+        "Installation of structural steel framework and side Girts purlins.",
+      duration: "1 week",
     },
+    keyHighlights: [
+      "Fast-tracked commercial skeleton erection",
+      "Zero-incident safety record",
+      "Precision alignment of secondary structural framing elements under a compressed timeframe",
+    ],
+    gallery: [],
   },
   {
-    id: "retail-complex-steel",
-    title: "Retail Complex Steelwork",
-    description: "Multi-tenancy retail development requiring complex roof truss systems and architectural steel feature elements.",
+    id: "manawa-bay",
+    title: "Manawa Bay",
+    description:
+      "Heavy on-site structural welding, technical site modifications, and interior steel framing erection within a major retail precinct.",
     category: "commercial",
     categoryLabel: "Commercial",
-    location: "North Shore",
-    year: "2023",
+    location: "Auckland",
     status: "completed",
-    image: "https://images.unsplash.com/photo-1582213706038-f8d9ce3dff1b?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/projects/manawa-bay.jpg",
+    subcontractor: "Lieron Engineering Limited",
+    mainContractor: "Weldlok NZ",
     details: {
-      scope: "Roof trusses, architectural steelwork, canopy structures",
-      tonnage: "450 tonnes",
-      duration: "10 months",
-      standard: "NZS 3404",
+      scope:
+        "Heavy on-site structural welding, technical site modifications, and interior steel framing erection.",
+      duration: "3 months",
     },
+    keyHighlights: [
+      "Dynamic fit-out and structural adjustments within a major commercial retail precinct",
+      "Adaptable on-the-fly site engineering to accommodate changing tenant layout requirements",
+    ],
+    gallery: [],
   },
   {
-    id: "custom-bracket-fabrication",
-    title: "Custom Bracket Fabrication",
-    description: "Bespoke heavy steel assemblies engineered for high-tension bridge components requiring sub-millimeter precision.",
-    category: "infrastructure",
-    categoryLabel: "Infrastructure",
-    location: "Waikato",
-    year: "2024",
+    id: "paknsave-albany",
+    title: "PaknSave Albany (Underground Parking)",
+    description:
+      "Structural steel installation and heavy-duty drilling for all primary main beam supports in a sub-level parking facility.",
+    category: "commercial",
+    categoryLabel: "Commercial",
+    location: "Albany, Auckland",
     status: "completed",
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/projects/paknsave-albany.jpg",
+    subcontractor: "Lieron Engineering Limited",
+    mainContractor: "Weldlok NZ",
     details: {
-      scope: "Custom brackets, connection plates, anchor assemblies",
-      tonnage: "120 tonnes",
-      duration: "4 months",
-      standard: "AS/NZS 1554.1",
+      scope:
+        "Structural steel installation and heavy-duty drilling for all primary main beam supports.",
+      duration: "3 months",
     },
+    keyHighlights: [
+      "Sub-level structural reinforcement",
+      "Complex overhead drilling into existing concrete",
+      "Strict dust, noise, and vibration management within an enclosed subterranean space",
+    ],
+    gallery: [],
   },
   {
-    id: "warehouse-steel-erection",
-    title: "Warehouse Steel Erection",
-    description: "Large-span industrial warehouse with clear-height portal frame design. Rapid site erection with specialized rigging crews.",
+    id: "saint-ignatius-school",
+    title: "Saint Ignatius School",
+    description:
+      "Structural steel installation and certified fabrication welding for a modern educational facility.",
+    category: "commercial",
+    categoryLabel: "Commercial",
+    location: "Auckland",
+    status: "completed",
+    image: "/images/projects/saint-ignatius-school.jpg",
+    subcontractor: "Lieron Engineering Limited",
+    mainContractor: "Weldlok NZ",
+    details: {
+      scope: "Structural steel installation and certified fabrication welding.",
+      duration: "1 month",
+    },
+    keyHighlights: [
+      "Modern educational infrastructure build",
+      "Strict adherence to school-zone safety protocols",
+      "Delivery of highly durable multi-level steel framework meeting modern New Zealand compliance codes",
+    ],
+    gallery: [],
+  },
+  {
+    id: "papamoa-college",
+    title: "Papamoa College, Tauranga",
+    description:
+      "Structural steel installation for the new administration office facility, completed in a rapid 72-hour window.",
+    category: "commercial",
+    categoryLabel: "Commercial",
+    location: "Tauranga",
+    status: "completed",
+    image: "/images/projects/papamoa-college.jpg",
+    subcontractor: "Lieron Engineering Limited",
+    mainContractor: "Weldlok NZ",
+    details: {
+      scope:
+        "Structural steel installation for the new administration office facility.",
+      duration: "3 days",
+    },
+    keyHighlights: [
+      "Extreme rapid-response execution",
+      "Mobilization and complete structural framing handover achieved within a 72-hour window without compromising quality or safety",
+    ],
+    gallery: [],
+  },
+  {
+    id: "life-church-north-shore",
+    title: "Life Church North Shore",
+    description:
+      "Field-welding connection plates for precast concrete panels and structural steel installation.",
+    category: "commercial",
+    categoryLabel: "Commercial",
+    location: "North Shore, Auckland",
+    status: "completed",
+    image: "/images/projects/life-church-north-shore.jpg",
+    subcontractor: "Lieron Engineering Limited",
+    mainContractor: "Weldlok NZ",
+    details: {
+      scope:
+        "Field-welding connection plates for precast concrete panels and structural steel installation.",
+      duration: "2 weeks",
+    },
+    keyHighlights: [
+      "High-specification structural welding to secure heavy vertical precast panels",
+      "Critical seismic tie-ins",
+      "Seamless coordination with main contractor crane schedules",
+    ],
+    gallery: [],
+  },
+
+  // ── INDUSTRIAL ──────────────────────────────────────────────
+  {
+    id: "kopu-warehouse",
+    title: "Kopu Warehouse",
+    description:
+      "Structural steel installation and extensive welding spanning both high-clearance warehouse and multi-use office sectors.",
     category: "industrial",
     categoryLabel: "Industrial",
-    location: "East Tamaki",
-    year: "2023",
+    location: "Kopu",
     status: "completed",
-    image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/projects/kopu-warehouse.jpg",
+    subcontractor: "Lieron Engineering Limited",
+    mainContractor: "Weldlok NZ",
     details: {
-      scope: "Portal frames, purlins, girts, bracing",
-      tonnage: "280 tonnes",
-      duration: "5 months",
-      standard: "NZS 3404",
+      scope:
+        "Structural steel installation and extensive welding spanning both high-clearance warehouse and multi-use office sectors.",
+      duration: "1 month",
     },
+    keyHighlights: [
+      "Dual-zone industrial build",
+      "Seamless structural integration between high-clearance clear-span portal frames and low-clearance office mezzanine structures",
+    ],
+    gallery: [],
+  },
+
+  // ── INFRASTRUCTURE ──────────────────────────────────────────
+  {
+    id: "auckland-airport-cargo-entrance",
+    title: "Auckland Airport New Entrance for Cargo",
+    description:
+      "Structural steel installation for the primary cargo logistics entrance hub at Auckland Airport.",
+    category: "infrastructure",
+    categoryLabel: "Infrastructure",
+    location: "Auckland Airport",
+    status: "completed",
+    image: "/images/projects/auckland-airport-cargo.jpg",
+    subcontractor: "Lieron Engineering Limited",
+    mainContractor: "Weldlok NZ",
+    details: {
+      scope:
+        "Structural steel installation for the primary cargo logistics entrance hub.",
+      duration: "2 weeks",
+    },
+    keyHighlights: [
+      "Critical national infrastructure deployment",
+      "Rigorous airside/landside safety clearance compliance",
+      "Strict logistical planning to minimize disruptions to high-volume airport logistics traffic",
+    ],
+    gallery: [],
   },
 ];
 
