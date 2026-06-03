@@ -94,13 +94,14 @@ export default function ProjectsPageClient() {
       {/* Project Grid */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {displayedProjects.map((project, index) => {
               const isLastVisible = !showAll && index === defaultLimit - 1 && filtered.length > defaultLimit;
               const remainingCount = filtered.length - defaultLimit;
 
               return (
               <motion.div
+                layout
                 key={project.id}
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
