@@ -183,11 +183,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               )}
 
               {/* Gallery */}
-              <div>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-4">Gallery</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {project.gallery.length > 0 ? (
-                    project.gallery.map((img, i) => (
+              {project.gallery.length > 0 && (
+                <div>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-4">Gallery</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {project.gallery.map((img, i) => (
                       <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden border border-gray-100 dark:border-dark-border">
                         <Image
                           src={img}
@@ -197,18 +197,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                           sizes="(max-width: 768px) 50vw, 200px"
                         />
                       </div>
-                    ))
-                  ) : (
-                    <>
-                      {[1, 2, 3].map((_, i) => (
-                        <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-dashed border-gray-200 dark:border-dark-border flex items-center justify-center bg-gray-50/50 dark:bg-dark-surface/50">
-                          <span className="text-xs text-gray-400 font-medium text-center px-4">Upload photo<br/>to show here</span>
-                        </div>
-                      ))}
-                    </>
-                  )}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </motion.div>
           </motion.div>
         </motion.div>

@@ -28,7 +28,7 @@ export const PROJECTS: ProjectData[] = [
     categoryLabel: "Commercial",
     location: "Wiri, Auckland",
     status: "completed",
-    image: "/images/projects/place-makers-wiri.jpg",
+    image: "/images/Place Makers-Project.png",
     subcontractor: "Lieron Engineering Limited",
     mainContractor: "Weldlok NZ",
     details: {
@@ -52,7 +52,7 @@ export const PROJECTS: ProjectData[] = [
     categoryLabel: "Commercial",
     location: "Auckland",
     status: "completed",
-    image: "/images/projects/manawa-bay.jpg",
+    image: "/images/Manawa-Bay-Project.jpeg",
     subcontractor: "Lieron Engineering Limited",
     mainContractor: "Weldlok NZ",
     details: {
@@ -64,7 +64,11 @@ export const PROJECTS: ProjectData[] = [
       "Dynamic fit-out and structural adjustments within a major commercial retail precinct",
       "Adaptable on-the-fly site engineering to accommodate changing tenant layout requirements",
     ],
-    gallery: [],
+    gallery: [
+      "/images/Manawa-Bay-Project 2.jpeg",
+      "/images/Manawa-Bay-Project 3.png",
+      "/images/Manawa-Bay-Project 4.png",
+    ],
   },
   {
     id: "paknsave-albany",
@@ -75,7 +79,7 @@ export const PROJECTS: ProjectData[] = [
     categoryLabel: "Commercial",
     location: "Albany, Auckland",
     status: "completed",
-    image: "/images/projects/paknsave-albany.jpg",
+    image: "/images/PaknSave Albany-Project.jpeg",
     subcontractor: "Lieron Engineering Limited",
     mainContractor: "Weldlok NZ",
     details: {
@@ -88,7 +92,11 @@ export const PROJECTS: ProjectData[] = [
       "Complex overhead drilling into existing concrete",
       "Strict dust, noise, and vibration management within an enclosed subterranean space",
     ],
-    gallery: [],
+    gallery: [
+      "/images/PaknSave Albany-Project 2.jpeg",
+      "/images/PaknSave Albany-Project 3.jpeg",
+      "/images/PaknSave Albany-Project 4.jpeg",
+    ],
   },
   {
     id: "saint-ignatius-school",
@@ -99,7 +107,7 @@ export const PROJECTS: ProjectData[] = [
     categoryLabel: "Commercial",
     location: "Auckland",
     status: "completed",
-    image: "/images/projects/saint-ignatius-school.jpg",
+    image: "/images/Saint-Ignatius-School-Project.jpeg",
     subcontractor: "Lieron Engineering Limited",
     mainContractor: "Weldlok NZ",
     details: {
@@ -122,7 +130,7 @@ export const PROJECTS: ProjectData[] = [
     categoryLabel: "Commercial",
     location: "Tauranga",
     status: "completed",
-    image: "/images/projects/papamoa-college.jpg",
+    image: "/images/Papamoa Collage-Project.png",
     subcontractor: "Lieron Engineering Limited",
     mainContractor: "Weldlok NZ",
     details: {
@@ -145,7 +153,7 @@ export const PROJECTS: ProjectData[] = [
     categoryLabel: "Commercial",
     location: "North Shore, Auckland",
     status: "completed",
-    image: "/images/projects/life-church-north-shore.jpg",
+    image: "/images/Life Church-Project.png",
     subcontractor: "Lieron Engineering Limited",
     mainContractor: "Weldlok NZ",
     details: {
@@ -171,7 +179,7 @@ export const PROJECTS: ProjectData[] = [
     categoryLabel: "Industrial",
     location: "Kopu",
     status: "completed",
-    image: "/images/projects/kopu-warehouse.jpg",
+    image: "/images/Kopu Warehouse-Project.jpeg",
     subcontractor: "Lieron Engineering Limited",
     mainContractor: "Weldlok NZ",
     details: {
@@ -196,7 +204,7 @@ export const PROJECTS: ProjectData[] = [
     categoryLabel: "Infrastructure",
     location: "Auckland Airport",
     status: "completed",
-    image: "/images/projects/auckland-airport-cargo.jpg",
+    image: "/images/Auckland Airport-Project.jpg",
     subcontractor: "Lieron Engineering Limited",
     mainContractor: "Weldlok NZ",
     details: {
@@ -209,7 +217,10 @@ export const PROJECTS: ProjectData[] = [
       "Rigorous airside/landside safety clearance compliance",
       "Strict logistical planning to minimize disruptions to high-volume airport logistics traffic",
     ],
-    gallery: [],
+    gallery: [
+      "/images/Auckland Airport-Project 2.jpeg",
+      "/images/Auckland Airport-Project 3.jpeg",
+    ],
   },
 ];
 

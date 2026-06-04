@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionLabel from "@/components/ui/SectionLabel";
-import StatsCounter from "@/components/ui/StatsCounter";
 import Button from "@/components/ui/Button";
 import ProjectModal from "@/components/ui/ProjectModal";
 import { PROJECTS, PROJECT_CATEGORIES } from "@/lib/projects";
@@ -234,23 +233,6 @@ export default function ProjectsPageClient() {
             <p className="text-gray-400 dark:text-gray-500 text-lg">No projects found in this category.</p>
           </div>
         )}
-      </section>
-
-      {/* Stats */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="divider-gradient mb-12" />
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={fadeUp}
-        >
-          <StatsCounter value="14,200" label="Tons Placed" />
-          <StatsCounter value="24" label="Active Sites" />
-          <StatsCounter value="09" label="Vehicles" />
-          <StatsCounter value="100%" label="Safety Rating" />
-        </motion.div>
       </section>
 
       {/* CTA */}
