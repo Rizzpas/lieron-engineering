@@ -32,6 +32,7 @@ export default function PartnersBar() {
                 alt="Enterprize Steel"
                 width={120}
                 height={48}
+                style={{ width: "auto", height: "auto" }}
                 className="h-10 md:h-12 w-auto transition-all duration-300"
               />
             </motion.span>
@@ -45,6 +46,7 @@ export default function PartnersBar() {
                 alt="Weldlok"
                 width={120}
                 height={48}
+                style={{ width: "auto", height: "auto" }}
                 className="h-10 md:h-12 w-auto transition-all duration-300"
               />
             </motion.span>

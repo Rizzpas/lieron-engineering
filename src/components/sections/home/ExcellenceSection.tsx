@@ -29,6 +29,7 @@ export default function ExcellenceSection() {
               width={800}
               height={500}
               loading="lazy"
+              style={{ width: "auto", height: "auto" }}
               className="w-full h-[400px] lg:h-[500px] object-cover object-top rounded-2xl shadow-2xl"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
