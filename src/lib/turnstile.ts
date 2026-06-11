@@ -11,12 +11,12 @@ interface TurnstileResult {
   "error-codes"?: string[];
 }
 
-export async function verifyTurnstile(token: string): Promise<{ success: boolean }> {
+export async function verifyTurnstile(token: string): Promise<{ success: boolean; errorCodes?: string[] }> {
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
 
   if (!secretKey) {
     console.error("Missing TURNSTILE_SECRET_KEY environment variable");
-    return { success: false };
+    return { success: false, errorCodes: ["missing-secret-key"] };
   }
 
   try {
@@ -35,9 +35,9 @@ export async function verifyTurnstile(token: string): Promise<{ success: boolean
       console.warn("Turnstile verification failed:", result["error-codes"]);
     }
 
-    return { success: result.success };
+    return { success: result.success, errorCodes: result["error-codes"] };
   } catch (error) {
     console.error("Turnstile verification error:", error);
-    return { success: false };
+    return { success: false, errorCodes: ["fetch-error"] };
   }
 }

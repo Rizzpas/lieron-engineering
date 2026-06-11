@@ -68,8 +68,10 @@ export async function POST(request: Request) {
     // --- 5. TURNSTILE VERIFICATION ---
     const turnstileResult = await verifyTurnstile(turnstileToken);
     if (!turnstileResult.success) {
+      const errorDetail = turnstileResult.errorCodes?.join(", ") || "unknown";
+      console.error("Turnstile failed with codes:", errorDetail);
       return Response.json(
-        { success: false, message: "Verification failed. Please try again." },
+        { success: false, message: `Verification failed (${errorDetail}). Please try again.` },
         { status: 400 }
       );
     }
