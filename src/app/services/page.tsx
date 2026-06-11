@@ -2,23 +2,52 @@ import { generatePageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
+import JsonLd from "@/components/seo/JsonLd";
 
 export const metadata = generatePageMetadata({
   title: "Services",
   description:
-    "Lieron Engineering services: Structural Steel Detailing, Rigging & Heavy Lifting, Site Fabrication & Welding, and Skilled Manpower Supply across New Zealand.",
+    "Structural steel services in Auckland, NZ — steel detailing, rigging & heavy lifting, site fabrication & welding, and skilled manpower supply by Lieron Engineering.",
   path: "/services",
 });
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        type="BreadcrumbList"
+        breadcrumbs={[
+          { name: "Home", item: "" },
+          { name: "Services", item: "/services" },
+        ]}
+      />
+      <JsonLd
+        type="Service"
+        services={[
+          {
+            name: "Structural Steel Detailing",
+            description: "3D Modeling, BIM, and Shop Drawings for structural steel works.",
+          },
+          {
+            name: "Rigging & Heavy Lifting",
+            description: "Certified rigging crews, lift planning, and specialized lifting gear.",
+          },
+          {
+            name: "Site Fabrication & Welding",
+            description: "On-site structural welding and custom steel fabrication.",
+          },
+          {
+            name: "Skilled Manpower Supply",
+            description: "Supply of structural welders, advanced riggers, and site supervisors.",
+          },
+        ]}
+      />
       {/* Hero */}
       <section className="relative bg-gray-900 dark:bg-dark text-white pt-24 md:pt-32 pb-20 lg:pb-28 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2000&auto=format&fit=crop"
-            alt="Engineering background"
+            alt="Industrial structural steel framework background for Lieron Engineering services"
             fill
             className="object-cover opacity-20 grayscale"
             priority
@@ -100,7 +129,7 @@ export default function ServicesPage() {
             <div className="bg-gray-50 dark:bg-dark-card rounded-2xl overflow-hidden border border-gray-100 dark:border-dark-border">
               <Image
                 src="/images/Steel-detailing.jpg"
-                alt="3D structural modeling"
+                alt="3D structural steel modeling and BIM detailing software interface"
                 width={1000}
                 height={400}
                 className="w-full h-64 object-cover"
@@ -175,7 +204,7 @@ export default function ServicesPage() {
             <div className="relative animate-on-scroll">
               <Image
                 src="/images/sf 2.jpeg"
-                alt="Professional welder at work"
+                alt="Professional structural welder performing site fabrication in Auckland"
                 width={1000}
                 height={450}
                 className="w-full h-[450px] object-cover rounded-2xl"

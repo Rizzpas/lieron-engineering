@@ -22,7 +22,7 @@ export default function HeroSection() {
   const isMobile = useIsMobile();
 
   return (
-    <section className="relative w-full overflow-hidden">
+    <section aria-label="Hero" className="relative w-full overflow-hidden">
       <div className={`${isMobile ? '' : 'grid-bg-animated'} max-w-7xl mx-auto px-6 lg:px-8 pt-16 md:pt-24 pb-20 md:pb-32 flex flex-col lg:flex-row items-center gap-16 lg:gap-20`}>
         {/* Left Content */}
         <motion.div
@@ -182,7 +182,7 @@ export default function HeroSection() {
             <div className="bg-gray-200 dark:bg-dark-surface overflow-hidden rounded-2xl shadow-2xl">
               <Image
                 src="/images/hero-img.jpg"
-                alt="Structural Steel Engineering by Lieron Engineering"
+                alt="Structural steel framework erected by Lieron Engineering on an Auckland construction site"
                 width={800}
                 height={600}
                 className="w-full h-[500px] object-cover transition-transform duration-[1.5s] hover:scale-105"

@@ -4,9 +4,10 @@ import { contactSchema } from "@/lib/contactSchema";
 import { verifyTurnstile } from "@/lib/turnstile";
 import { checkRateLimit } from "@/lib/ratelimit";
 import { ContactEmail } from "@/emails/ContactEmail";
+import { COMPANY } from "@/lib/constants";
 
-// Where contact form submissions are sent (change to noriel@lieron.co.nz for production)
-const RECIPIENT_EMAIL = "jonathan.ripas14@gmail.com";
+// Where contact form submissions are sent
+const RECIPIENT_EMAIL = process.env.CONTACT_EMAIL || COMPANY.email;
 
 
 

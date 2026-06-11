@@ -4,6 +4,7 @@ import PartnersBar from "@/components/sections/home/PartnersBar";
 import CapabilitiesGrid from "@/components/sections/home/CapabilitiesGrid";
 import ExcellenceSection from "@/components/sections/home/ExcellenceSection";
 import CTASection from "@/components/sections/home/CTASection";
+import JsonLd from "@/components/seo/JsonLd";
 
 export const metadata = generatePageMetadata({
   title: "Lieron Engineering | Structural Steel Auckland",
@@ -16,6 +17,7 @@ export const metadata = generatePageMetadata({
 export default function HomePage() {
   return (
     <>
+      <JsonLd type="LocalBusiness" />
       <HeroSection />
       <PartnersBar />
       <CapabilitiesGrid />

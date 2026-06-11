@@ -43,7 +43,7 @@ export default function Footer() {
                 </p>
 
                 {/* Contact quick info */}
-                <div className="space-y-3">
+                <address className="space-y-3 not-italic">
                   <a
                     href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
                     className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors group"
@@ -66,11 +66,11 @@ export default function Footer() {
                     </span>
                     {COMPANY.email}
                   </a>
-                </div>
+                </address>
               </div>
 
               {/* Link columns */}
-              <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-12">
+              <nav aria-label="Footer navigation" className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-12">
                 <div>
                   <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-900 dark:text-white mb-5">
                     Services
@@ -132,7 +132,7 @@ export default function Footer() {
                     ))}
                   </ul>
                 </div>
-              </div>
+              </nav>
             </div>
           </div>
 

@@ -12,7 +12,7 @@ export const COMPANY = {
   location: "Auckland, NZ",
   phone: "021 286 2885",
   email: "noriel@lieron.co.nz",
-  domain: "https://lieronengineering.co.nz",
+  domain: "https://www.lieron.co.nz",
   hours: {
     days: "MON — FRI",
     time: "07:00 AM — 03:30 PM",
@@ -50,3 +50,20 @@ export const SOCIAL_LINKS = [
   { label: "Instagram", href: "#", icon: "instagram" },
   { label: "LinkedIn", href: "#", icon: "linkedin" },
 ] as const;
+
+export const SEO = {
+  keywords: [
+    "structural steel Auckland",
+    "steel detailing NZ",
+    "rigging Auckland",
+    "site fabrication welding New Zealand",
+    "structural steel engineering Auckland",
+    "steel erection NZ",
+  ],
+  geo: {
+    latitude: -36.8863605,
+    longitude: 174.5627566,
+    region: "NZ-AUK",
+    placeName: "Auckland, New Zealand",
+  },
+} as const;

@@ -12,6 +12,7 @@ export function useIsMobile(): boolean {
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px), (pointer: coarse)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobile(mq.matches);
 
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);

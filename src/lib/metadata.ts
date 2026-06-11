@@ -1,4 +1,4 @@
-import { COMPANY } from "./constants";
+import { COMPANY, SEO } from "./constants";
 import type { Metadata } from "next";
 
 /**
@@ -32,6 +32,17 @@ export function generatePageMetadata({
       card: "summary_large_image",
       title: `${title} | ${COMPANY.brandName}`,
       description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    keywords: [...SEO.keywords],
+    other: {
+      "geo.region": SEO.geo.region,
+      "geo.placename": SEO.geo.placeName,
+      "geo.position": `${SEO.geo.latitude};${SEO.geo.longitude}`,
+      "ICBM": `${SEO.geo.latitude}, ${SEO.geo.longitude}`,
     },
     alternates: {
       canonical: url,

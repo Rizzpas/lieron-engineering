@@ -1,17 +1,25 @@
 import { generatePageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import SectionLabel from "@/components/ui/SectionLabel";
+import JsonLd from "@/components/seo/JsonLd";
 
 export const metadata = generatePageMetadata({
   title: "About",
   description:
-    "Learn about Lieron Engineering Limited — precision engineering solutions built on reliability. Auckland-based structural steel specialists with a relentless commitment to safety.",
+    "About Lieron Engineering — Auckland-based structural steel specialists delivering precision detailing, rigging, and site fabrication across New Zealand since 2023.",
   path: "/about",
 });
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        type="BreadcrumbList"
+        breadcrumbs={[
+          { name: "Home", item: "" },
+          { name: "About Us", item: "/about" },
+        ]}
+      />
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 md:pt-24 pb-20 md:pb-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
@@ -65,7 +73,7 @@ export default function AboutPage() {
           <div className="relative h-80 lg:h-auto rounded-2xl overflow-hidden animate-on-scroll slide-right">
             <Image
               src="/images/rigg 17.jpeg"
-              alt="Steel beams structural framework"
+              alt="Structural steel rigging team assembling beams in Auckland, NZ"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -163,7 +171,7 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900 dark:from-dark-card to-transparent z-10 w-1/4 hidden lg:block" />
             <Image
               src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1000&auto=format&fit=crop"
-              alt="Construction site safety protocols"
+              alt="Construction site safety protocols for structural steel engineering in NZ"
               fill
               className="object-cover opacity-70"
               sizes="(max-width: 1024px) 100vw, 50vw"

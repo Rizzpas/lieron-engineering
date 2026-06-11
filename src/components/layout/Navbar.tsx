@@ -25,6 +25,7 @@ export default function Navbar() {
   return (
     <nav
       id="main-navigation"
+      aria-label="Main navigation"
       className={`fixed w-full z-50 top-0 transition-all duration-500 ${
         scrolled
           ? "bg-white/80 dark:bg-dark/80 backdrop-blur-xl shadow-[0_1px_0_rgba(0,0,0,0.05)] dark:shadow-[0_1px_0_rgba(255,255,255,0.05)]"

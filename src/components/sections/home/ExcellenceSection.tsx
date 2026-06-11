@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
-import { fadeUp, slideLeft, slideRight, floatingAnimation, viewportOnce } from "@/lib/animations";
+import { slideLeft, slideRight, floatingAnimation, viewportOnce } from "@/lib/animations";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function ExcellenceSection() {
@@ -25,7 +25,7 @@ export default function ExcellenceSection() {
           <div className="relative">
             <Image
               src="/images/wow.jpg"
-              alt="Rigging"
+              alt="Steel rigging crew positioning structural beam on site in New Zealand"
               width={800}
               height={500}
               loading="lazy"

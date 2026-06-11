@@ -8,6 +8,7 @@ import ScrollAnimationProvider from "@/components/layout/ScrollAnimationProvider
 import PageTransition from "@/components/layout/PageTransition";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import AmbientBackground from "@/components/layout/AmbientBackground";
+import JsonLd from "@/components/seo/JsonLd";
 
 
 const inter = localFont({
@@ -72,6 +73,8 @@ export default function RootLayout({
         <AmbientBackground />
 
         <Navbar />
+        <JsonLd type="Organization" />
+        <JsonLd type="WebSite" />
         <main className="pt-[72px] relative z-[1]">
           <PageTransition>{children}</PageTransition>
         </main>
