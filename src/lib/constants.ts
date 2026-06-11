@@ -2,6 +2,7 @@ import type { NavLink } from "@/types";
 
 export const COMPANY = {
   name: "Lieron Engineering Limited",
+  brandName: "Lieron Engineering",
   shortName: "Lieron",
   tagline: "The Standard of Precision",
   headline: "Quality of Work Is Our Assurance",

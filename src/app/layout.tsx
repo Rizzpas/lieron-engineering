@@ -19,13 +19,13 @@ const inter = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: `${COMPANY.name} — ${COMPANY.tagline}`,
-    template: `%s | ${COMPANY.name}`,
+    default: `${COMPANY.brandName} — ${COMPANY.tagline}`,
+    template: `%s | ${COMPANY.brandName}`,
   },
   description: COMPANY.description,
   metadataBase: new URL(COMPANY.domain),
   openGraph: {
-    title: COMPANY.name,
+    title: COMPANY.brandName,
     description: COMPANY.description,
     url: COMPANY.domain,
     siteName: COMPANY.name,
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: COMPANY.name,
+    title: COMPANY.brandName,
     description: COMPANY.description,
   },
   robots: {

@@ -3,7 +3,7 @@ import Image from "next/image";
 import SectionLabel from "@/components/ui/SectionLabel";
 
 export const metadata = generatePageMetadata({
-  title: "About Us",
+  title: "About",
   description:
     "Learn about Lieron Engineering Limited — precision engineering solutions built on reliability. Auckland-based structural steel specialists with a relentless commitment to safety.",
   path: "/about",

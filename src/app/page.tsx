@@ -6,10 +6,11 @@ import ExcellenceSection from "@/components/sections/home/ExcellenceSection";
 import CTASection from "@/components/sections/home/CTASection";
 
 export const metadata = generatePageMetadata({
-  title: "Structural Steel Engineering in Auckland, NZ",
+  title: "Lieron Engineering | Structural Steel Auckland",
   description:
     "Lieron Engineering Limited — Specializing in Structural Steel Detailing, Rigging, and Site Fabrication Welding across New Zealand. Quality of work is our assurance.",
   path: "/",
+  absoluteTitle: true,
 });
 
 export default function HomePage() {
