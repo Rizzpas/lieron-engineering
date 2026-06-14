@@ -347,17 +347,20 @@ export default function ContactPageClient() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
-        <div className="w-full h-[400px] rounded-2xl overflow-hidden border border-gray-200 dark:border-dark-border shadow-sm">
+        <div className="w-full h-[400px] rounded-2xl overflow-hidden border border-gray-200 dark:border-dark-border shadow-sm dark:bg-black relative">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51058.66696657133!2d174.56275665018623!3d-36.8863605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d0d417bb037e893%3A0x715a973d95656e62!2sLIERON%20ENGINEERING%20LIMITED!5e0!3m2!1sen!2sph!4v1775495205113!5m2!1sen!2sph"
             width="100%"
             height="100%"
             style={{ border: 0 }}
+            className="map-iframe transition-all duration-500"
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="Lieron Engineering Limited location map"
           />
+          {/* Edge shadow for depth (dark mode only) */}
+          <div className="absolute inset-0 opacity-0 dark:opacity-100 shadow-[inset_0_0_40px_rgba(0,0,0,0.8)] pointer-events-none transition-opacity duration-500" />
         </div>
       </div>
 

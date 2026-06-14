@@ -14,6 +14,7 @@ interface ProjectModalProps {
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [mounted, setMounted] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -40,63 +41,77 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   }, [onClose]);
 
   const modalHtml = (
-    <AnimatePresence>
-      {project && (
-        <motion.div
-          className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6"
-          onClick={onClose}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-title"
-          variants={modalBackdrop}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-
-          {/* Modal content */}
+    <>
+      <AnimatePresence>
+        {project && (
           <motion.div
-            className="relative w-full sm:max-w-3xl max-h-[90vh] overflow-y-auto bg-white dark:bg-dark-card sm:rounded-2xl shadow-2xl border border-gray-200/20 dark:border-white/5"
-            onClick={(e) => e.stopPropagation()}
-            variants={modalContent}
+            className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6"
+            onClick={onClose}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            variants={modalBackdrop}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
-            {/* Close button */}
-            <motion.button
-              onClick={onClose}
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm text-white hover:bg-black/40 flex items-center justify-center transition-all cursor-pointer"
-              aria-label="Close modal"
-              id="modal-close"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </motion.button>
+            {/* Backdrop */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
-            {/* Hero image */}
-            <div className="relative h-64 sm:h-80 w-full">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 768px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            {/* Modal content */}
+            <motion.div
+              className="relative w-full sm:max-w-3xl max-h-[90vh] overflow-hidden flex flex-col bg-white dark:bg-dark-card sm:rounded-2xl shadow-2xl border border-gray-200/20 dark:border-white/5"
+              onClick={(e) => e.stopPropagation()}
+              variants={modalContent}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {/* Close button */}
+              <motion.button
+                onClick={onClose}
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm text-white hover:bg-black/40 flex items-center justify-center transition-all cursor-pointer"
+                aria-label="Close modal"
+                id="modal-close"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </motion.button>
+
+              {/* Scrollable content wrapper */}
+              <div className="overflow-y-auto flex-1 w-full">
+                {/* Hero image */}
+                <div 
+                  className="relative h-64 sm:h-80 w-full cursor-pointer group"
+                  onClick={() => setSelectedImage(project.image)}
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 768px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  
+                  {/* View Overlay */}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 pointer-events-none">
+                    <div className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white border border-white/20">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                      </svg>
+                    </div>
+                  </div>
 
               {/* Status badge */}
               <div className="absolute top-4 left-4 z-10">
-                <span className={`text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full ${
-                  project.status === "ongoing"
+                <span className={`text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full ${project.status === "ongoing"
                     ? "bg-primary text-white"
                     : "bg-white/90 text-gray-900"
-                }`}>
+                  }`}>
                   {project.status}
                 </span>
               </div>
@@ -189,24 +204,66 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-4">Gallery</p>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {project.gallery.map((img, i) => (
-                      <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden border border-gray-100 dark:border-dark-border">
+                      <div 
+                        key={i} 
+                        className="relative aspect-[4/3] rounded-xl overflow-hidden border border-gray-100 dark:border-dark-border cursor-pointer group"
+                        onClick={() => setSelectedImage(img)}
+                      >
                         <Image
                           src={img}
                           alt={`${project.title} - Photo ${i + 1}`}
                           fill
-                          className="object-cover hover:scale-105 transition-transform duration-500"
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
                           sizes="(max-width: 768px) 50vw, 200px"
                         />
+                        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <svg className="w-6 h-6 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                          </svg>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
             </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
+
+    <AnimatePresence>
+      {selectedImage && (
+        <motion.div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 sm:p-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <motion.button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 z-50 w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center transition-all cursor-pointer"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </motion.button>
+          <div className="relative w-full h-full max-w-6xl flex items-center justify-center">
+            <Image
+              src={selectedImage}
+              alt="Fullscreen preview"
+              fill
+              className="object-contain"
+              sizes="100vw"
+              quality={100}
+            />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </>
   );
 
   if (!mounted) return null;
