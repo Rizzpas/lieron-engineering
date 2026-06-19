@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     const badge = getConcernBadge(concern);
 
     const { error } = await resend.emails.send({
-      from: "Lieron Engineering <onboarding@resend.dev>",
+      from: "Lieron Engineering <contact@lieron.co.nz>",
       to: [RECIPIENT_EMAIL],
       replyTo: email,
       subject: `[Lieron] ${concern} — ${name}`,
