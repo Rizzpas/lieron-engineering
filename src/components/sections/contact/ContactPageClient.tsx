@@ -87,11 +87,17 @@ export default function ContactPageClient() {
       setCustomConcern("");
 
       setTurnstileToken("");
-      turnstileRef.current?.reset();
+      //turnstileRef.current?.reset();
       e.currentTarget.reset();
-    } catch {
+    } catch (err) {
+      console.error("CLIENT ERROR:", err);
+
       setFormStatus("error");
-      setErrorMessage("Network error. Please check your connection and try again.");
+      setErrorMessage(
+        err instanceof Error
+          ? err.message
+          : "Unknown client error."
+      );
     }
   }
 
