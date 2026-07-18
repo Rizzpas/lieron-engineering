@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { COMPANY } from "@/lib/constants";
@@ -25,6 +25,7 @@ export default function ContactPageClient() {
 
   // Turnstile token captured after the user completes the challenge
   const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<any>(null);
 
   // Handle success message timeout cleanup
   useEffect(() => {
@@ -37,6 +38,9 @@ export default function ContactPageClient() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (formStatus === "submitting") {
+      return;
+    }
     setFormStatus("submitting");
     setErrorMessage("");
 
@@ -57,6 +61,12 @@ export default function ContactPageClient() {
       turnstileToken,
     };
 
+    if (!turnstileToken) {
+      setFormStatus("error");
+      setErrorMessage("Please complete the verification.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -75,7 +85,9 @@ export default function ContactPageClient() {
       setFormStatus("success");
       setSelectedConcern(null);
       setCustomConcern("");
+
       setTurnstileToken("");
+      turnstileRef.current?.reset();
       e.currentTarget.reset();
     } catch {
       setFormStatus("error");
@@ -236,6 +248,7 @@ export default function ContactPageClient() {
               {/* Cloudflare Turnstile verification widget */}
               <div className="min-h-[65px] flex items-center justify-start">
                 <Turnstile
+                  ref={turnstileRef}
                   siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
                   onSuccess={(token) => setTurnstileToken(token)}
                   onExpire={() => setTurnstileToken("")}
