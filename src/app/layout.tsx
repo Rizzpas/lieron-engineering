@@ -9,6 +9,7 @@ import PageTransition from "@/components/layout/PageTransition";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import AmbientBackground from "@/components/layout/AmbientBackground";
 import JsonLd from "@/components/seo/JsonLd";
+import { Analytics } from "@vercel/analytics/next";
 
 
 const inter = localFont({
@@ -81,7 +82,7 @@ export default function RootLayout({
         <Footer />
         <ScrollAnimationProvider />
         <ScrollToTop />
-
+        <Analytics />
       </body>
     </html>
   );
