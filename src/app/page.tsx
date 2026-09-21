@@ -1,6 +1,5 @@
 import { generatePageMetadata } from "@/lib/metadata";
 import HeroSection from "@/components/sections/home/HeroSection";
-import PartnersBar from "@/components/sections/home/PartnersBar";
 import CapabilitiesGrid from "@/components/sections/home/CapabilitiesGrid";
 import ExcellenceSection from "@/components/sections/home/ExcellenceSection";
 import CTASection from "@/components/sections/home/CTASection";
@@ -19,7 +18,6 @@ export default function HomePage() {
     <>
       <JsonLd type="LocalBusiness" />
       <HeroSection />
-      <PartnersBar />
       <CapabilitiesGrid />
       <ExcellenceSection />
       <CTASection />
